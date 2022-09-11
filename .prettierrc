@@ -4,8 +4,5 @@
   "trailingComma": "es5",
   "printWidth": 120,
   "tabWidth": 2,
-  "arrowParens": "always",
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "arrowParens": "always"
 }
