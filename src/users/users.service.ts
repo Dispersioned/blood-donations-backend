@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Roles } from 'src/auth/role-auth.decorator';
+import { UserRoles } from 'src/roles/roles-user.model';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
 import { createUserDto } from './dto/create-user-dto';
@@ -15,9 +17,10 @@ export class UsersService {
 
   async createUser(dto: createUserDto) {
     const user = await this.userRepository.create(dto);
-    const role = await this.roleService.getRoleByValue('ADMIN');
-    await user.$set('role', role.id);
-    user.role = role;
+    const role = await this.roleService.getRoleByValue('USER');
+    await user.$set('roles', [role.id]);
+    // return user with role, because $set doesn't mutate initial data
+    user.roles = [role];
     return user;
   }
 
@@ -25,10 +28,9 @@ export class UsersService {
     const users = await this.userRepository.findAll({
       include: {
         model: Role,
-        attributes: ['value'],
       },
       attributes: {
-        exclude: ['roleId', 'createdAt', 'updatedAt'],
+        exclude: ['password'],
       },
     });
     return users;
