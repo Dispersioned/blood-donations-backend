@@ -17,7 +17,7 @@ export class AuthService {
   async register(userDto: createUserDto) {
     const candidate = await this.usersService.getUserByUsername(userDto.username);
     if (candidate) {
-      throw new HttpException('User with this username exists', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Пользователь с таким именем уже существует', HttpStatus.BAD_REQUEST);
     }
 
     const hashPassword = await bcrypt.hash(userDto.password, 5);
@@ -35,10 +35,10 @@ export class AuthService {
 
   private async validateUser(userDto: createUserDto) {
     const user = await this.usersService.getUserByUsername(userDto.username);
-    if (!user) throw new UnauthorizedException({ message: 'User not found' });
+    if (!user) throw new UnauthorizedException({ message: 'Пользователь не найден' });
 
     const passwordEquals = await bcrypt.compare(userDto.password, user.password);
-    if (!passwordEquals) throw new UnauthorizedException({ message: 'Wrong username or password' });
+    if (!passwordEquals) throw new UnauthorizedException({ message: 'Неправильный логин или пароль' });
     return user;
   }
 }

@@ -14,13 +14,13 @@ export class JwtAuthGuard implements CanActivate {
       const bearer = authHeader.split(' ')[0];
       const token = authHeader.split(' ')[1];
 
-      if (bearer != 'Bearer' || !token) throw new UnauthorizedException({ message: 'Not authorized' });
+      if (bearer != 'Bearer' || !token) throw new UnauthorizedException({ message: 'Пользователь не авторизован' });
 
       const user = this.jwtService.verify(token);
       req.user = user;
       return true;
     } catch (err) {
-      throw new UnauthorizedException({ message: 'Not authorized' });
+      throw new UnauthorizedException({ message: 'Пользователь не авторизован' });
     }
   }
 }
