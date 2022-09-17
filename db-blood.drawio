@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ZuSS_hsKMEKXDQGhwud5" name="Page-1">
-        <mxGraphModel dx="989" dy="756" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
+        <mxGraphModel dx="1060" dy="810" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -124,7 +124,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="Uv4HPUMLxdbUhzFTMgXX-54" value="Role" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" parent="1" vertex="1">
-                    <mxGeometry x="1120" y="1080" width="160" height="176" as="geometry"/>
+                    <mxGeometry x="1030" y="1090" width="160" height="146" as="geometry"/>
                 </mxCell>
                 <mxCell id="Uv4HPUMLxdbUhzFTMgXX-55" value="DONOR" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Uv4HPUMLxdbUhzFTMgXX-54" vertex="1">
                     <mxGeometry y="26" width="160" height="30" as="geometry"/>
@@ -132,14 +132,11 @@
                 <mxCell id="Uv4HPUMLxdbUhzFTMgXX-56" value="RECIPIENT" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Uv4HPUMLxdbUhzFTMgXX-54" vertex="1">
                     <mxGeometry y="56" width="160" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="Uv4HPUMLxdbUhzFTMgXX-57" value="USER" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Uv4HPUMLxdbUhzFTMgXX-54" vertex="1">
+                <mxCell id="Uv4HPUMLxdbUhzFTMgXX-89" value="DOCTOR" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Uv4HPUMLxdbUhzFTMgXX-54" vertex="1">
                     <mxGeometry y="86" width="160" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="Uv4HPUMLxdbUhzFTMgXX-88" value="ADMIN" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Uv4HPUMLxdbUhzFTMgXX-54" vertex="1">
+                <mxCell id="47" value="ADMIN" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="Uv4HPUMLxdbUhzFTMgXX-54">
                     <mxGeometry y="116" width="160" height="30" as="geometry"/>
-                </mxCell>
-                <mxCell id="Uv4HPUMLxdbUhzFTMgXX-89" value="DOCTOR" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" parent="Uv4HPUMLxdbUhzFTMgXX-54" vertex="1">
-                    <mxGeometry y="146" width="160" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="Uv4HPUMLxdbUhzFTMgXX-105" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmandOne;endFill=0;startArrow=ERmandOne;startFill=0;" parent="1" source="Uv4HPUMLxdbUhzFTMgXX-91" target="Uv4HPUMLxdbUhzFTMgXX-1" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
