@@ -1,12 +1,12 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
-interface HospitalCreationAttrs {
-  name: string;
-  location: string;
-}
+// interface HospitalCreationAttrs {
+//   name: string;
+//   location: string;
+// }
 
-@Table({ tableName: 'hospitals' })
-export class Hospital extends Model<Hospital, HospitalCreationAttrs> {
+@Table({ tableName: 'logs' })
+export class Logs extends Model<Logs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
