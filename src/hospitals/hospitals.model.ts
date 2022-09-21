@@ -1,5 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { HospitalBlood } from 'src/hospital-blood/hospital-blood.model';
+import { HospitalBlood } from 'src/hospital-blood/hospitals-blood.model';
 
 interface HospitalCreationAttrs {
   name: string;
