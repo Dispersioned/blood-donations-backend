@@ -18,13 +18,15 @@ export class BloodService {
   }
 
   async createAllBloods() {
-    this.createBlood({ group: '', rhFactor: '-' });
-    this.createBlood({ group: '', rhFactor: '+' });
-    this.createBlood({ group: 'A', rhFactor: '-' });
-    this.createBlood({ group: 'A', rhFactor: '+' });
-    this.createBlood({ group: 'B', rhFactor: '-' });
-    this.createBlood({ group: 'B', rhFactor: '+' });
-    this.createBlood({ group: 'AB', rhFactor: '-' });
-    this.createBlood({ group: 'AB', rhFactor: '+' });
+    await this.createBlood({ group: '', rhFactor: '-' });
+    await this.createBlood({ group: '', rhFactor: '+' });
+    await this.createBlood({ group: 'A', rhFactor: '-' });
+    await this.createBlood({ group: 'A', rhFactor: '+' });
+    await this.createBlood({ group: 'B', rhFactor: '-' });
+    await this.createBlood({ group: 'B', rhFactor: '+' });
+    await this.createBlood({ group: 'AB', rhFactor: '-' });
+    await this.createBlood({ group: 'AB', rhFactor: '+' });
+    const bloods = await this.getAll();
+    return bloods;
   }
 }
