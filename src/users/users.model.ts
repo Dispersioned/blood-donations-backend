@@ -37,7 +37,7 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   roleId: number;
 
-  @BelongsTo(() => Role)
+  @HasOne(() => Role)
   role: Role;
 
   @HasMany(() => Donation)
