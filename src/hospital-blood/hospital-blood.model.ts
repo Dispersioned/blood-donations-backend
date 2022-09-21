@@ -16,22 +16,22 @@ export class HospitalBlood extends Model<HospitalBlood> {
   @ForeignKey(() => Hospital)
   @Column({
     field: 'hospital_id',
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  hospitalId: string;
+  hospitalId: number;
 
   @ForeignKey(() => Blood)
   @Column({
     field: 'blood_id',
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  bloodId: string;
-
-  @HasMany(() => Donation)
-  donations: Donation[];
+  bloodId: number;
 
   @BelongsTo(() => Hospital)
   hospital: Hospital;
+
+  @HasMany(() => Donation)
+  donations: Donation[];
 }

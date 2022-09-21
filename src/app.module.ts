@@ -8,8 +8,11 @@ import { BloodRhFactor } from './blood-rh-factor/blood-rh-factor.model';
 import { BloodRhFactorModule } from './blood-rh-factor/blood-rh-factor.module';
 import { Blood } from './blood/blood.model';
 import { BloodModule } from './blood/blood.module';
+import { Donation } from './donations/donations.model';
 import { DonationsModule } from './donations/donations.module';
 import { HospitalBloodModule } from './hospital-blood/hospital-blood.module';
+import { HospitalBlood } from './hospital-blood/hospital-blood.model';
+import { Hospital } from './hospitals/hospitals.model';
 import { HospitalsModule } from './hospitals/hospitals.module';
 import { LogsModule } from './logs/logs.module';
 import { PatientsModule } from './patients/patients.module';
@@ -34,7 +37,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, Blood, BloodGroup, BloodRhFactor],
+      models: [User, Role, Blood, BloodGroup, BloodRhFactor, Donation, Hospital, HospitalBlood],
       autoLoadModels: true,
     }),
     UsersModule,
