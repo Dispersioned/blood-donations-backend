@@ -2,7 +2,7 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { IBloodRhFactor } from './types';
 
 @Table({ tableName: 'blood_rh_factor', createdAt: false, updatedAt: false })
-export class bloodRhFactor extends Model<bloodRhFactor> {
+export class BloodRhFactor extends Model<BloodRhFactor> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

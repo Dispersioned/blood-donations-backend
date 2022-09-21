@@ -1,4 +1,17 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
+import { BloodRhFactorService } from './blood-rh-factor.service';
 
 @Controller('blood-rh-factor')
-export class BloodRhFactorController {}
+export class BloodRhFactorController {
+  constructor(private readonly bloodRhFactorService: BloodRhFactorService) {}
+
+  @Get()
+  getAllBloodRhFactors() {
+    return this.bloodRhFactorService.getAll();
+  }
+
+  @Post()
+  createAllBloodRhFactors() {
+    return this.bloodRhFactorService.createAll();
+  }
+}
