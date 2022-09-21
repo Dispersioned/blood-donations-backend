@@ -12,10 +12,10 @@ export class BloodGroupService {
   }
 
   async createAll() {
-    await this.bloodGroupRepository.create({ name: '' });
-    await this.bloodGroupRepository.create({ name: 'A' });
-    await this.bloodGroupRepository.create({ name: 'B' });
-    await this.bloodGroupRepository.create({ name: 'AB' });
+    await this.bloodGroupRepository.create({ value: '' });
+    await this.bloodGroupRepository.create({ value: 'A' });
+    await this.bloodGroupRepository.create({ value: 'B' });
+    await this.bloodGroupRepository.create({ value: 'AB' });
     const bloodGroups = await this.getAll();
     return bloodGroups;
   }

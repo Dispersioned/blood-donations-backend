@@ -2,7 +2,7 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 import { IBloodGroup } from './types';
 
 interface bloodGroupCreationAttrs {
-  name: IBloodGroup;
+  value: IBloodGroup;
 }
 
 @Table({ tableName: 'blood_group', createdAt: false, updatedAt: false })
@@ -20,5 +20,5 @@ export class BloodGroup extends Model<BloodGroup, bloodGroupCreationAttrs> {
     unique: true,
     allowNull: false,
   })
-  name: IBloodGroup;
+  value: IBloodGroup;
 }
