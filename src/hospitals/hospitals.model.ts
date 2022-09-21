@@ -1,5 +1,6 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { HospitalBlood } from 'src/hospital-blood/hospitals-blood.model';
+import { Patient } from 'src/patients/patients.model';
 
 interface HospitalCreationAttrs {
   name: string;
@@ -31,4 +32,7 @@ export class Hospital extends Model<Hospital, HospitalCreationAttrs> {
 
   @HasMany(() => HospitalBlood)
   hospitalBloods: HospitalBlood[];
+
+  @HasMany(() => Patient)
+  patients: Patient[];
 }

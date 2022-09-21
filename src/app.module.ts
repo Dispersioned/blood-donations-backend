@@ -18,6 +18,7 @@ import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
+import { Patient } from './patients/patients.model';
 
 @Module({
   controllers: [],
@@ -33,7 +34,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, Blood, Donation, Hospital, HospitalBlood],
+      models: [User, Role, Blood, Donation, Hospital, HospitalBlood, Patient],
       autoLoadModels: true,
     }),
     UsersModule,

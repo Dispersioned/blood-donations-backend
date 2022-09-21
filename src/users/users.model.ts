@@ -1,5 +1,17 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  BelongsToMany,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  HasOne,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Donation } from 'src/donations/donations.model';
+import { Hospital } from 'src/hospitals/hospitals.model';
+import { Patient } from 'src/patients/patients.model';
 import { Role } from 'src/roles/roles.model';
 
 interface UserCreationAttrs {
@@ -37,9 +49,19 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   roleId: number;
 
+  @ForeignKey(() => Patient)
+  @Column({
+    field: 'patient_id',
+    type: DataType.INTEGER,
+  })
+  patientId: number;
+
   @BelongsTo(() => Role)
   role: Role;
 
   @HasMany(() => Donation)
   donations: Donation[];
+
+  @BelongsTo(() => Patient)
+  patient: Patient;
 }
