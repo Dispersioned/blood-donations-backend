@@ -1,5 +1,6 @@
-import { Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Blood } from 'src/blood/blood.model';
+import { Donation } from 'src/donations/donations.model';
 import { Hospital } from 'src/hospitals/hospitals.model';
 
 @Table({ tableName: 'hospital_blood' })
@@ -27,4 +28,7 @@ export class HospitalBlood extends Model<HospitalBlood> {
     allowNull: false,
   })
   bloodId: string;
+
+  @HasMany(() => Donation)
+  donations: Donation[];
 }
