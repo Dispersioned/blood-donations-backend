@@ -1,4 +1,4 @@
-import { Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Blood } from 'src/blood/blood.model';
 import { Donation } from 'src/donations/donations.model';
 import { Hospital } from 'src/hospitals/hospitals.model';
@@ -31,4 +31,7 @@ export class HospitalBlood extends Model<HospitalBlood> {
 
   @HasMany(() => Donation)
   donations: Donation[];
+
+  @BelongsTo(() => Hospital)
+  hospital: Hospital;
 }

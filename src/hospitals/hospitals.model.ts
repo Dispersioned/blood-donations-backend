@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { HospitalBlood } from 'src/hospital-blood/hospitals-blood.model';
 
 interface HospitalCreationAttrs {
   name: string;
@@ -28,13 +29,6 @@ export class Hospital extends Model<Hospital, HospitalCreationAttrs> {
   })
   location: string;
 
-  // @ForeignKey(() => Role)
-  // @Column({
-  //   field: 'role_id',
-  //   type: DataType.INTEGER,
-  // })
-  // roleId: number;
-
-  // @BelongsTo(() => Role)
-  // role: Role;
+  @HasMany(() => HospitalBlood)
+  hospitalBloods: HospitalBlood[];
 }
