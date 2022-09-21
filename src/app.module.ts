@@ -8,6 +8,13 @@ import { BloodRhFactor } from './blood-rh-factor/blood-rh-factor.model';
 import { BloodRhFactorModule } from './blood-rh-factor/blood-rh-factor.module';
 import { Blood } from './blood/blood.model';
 import { BloodModule } from './blood/blood.module';
+import { DonationsModule } from './donations/donations.module';
+import { HospitalBloodModule } from './hospital-blood/hospital-blood.module';
+import { HospitalsModule } from './hospitals/hospitals.module';
+import { LogsModule } from './logs/logs.module';
+import { PatientsModule } from './patients/patients.module';
+import { RequestHospitalBloodModule } from './request-hospital-blood/request-hospital-blood.module';
+import { RequestsModule } from './requests/requests.module';
 import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
 import { User } from './users/users.model';
@@ -36,6 +43,13 @@ import { UsersModule } from './users/users.module';
     BloodModule,
     BloodGroupModule,
     BloodRhFactorModule,
+    LogsModule,
+    HospitalBloodModule,
+    RequestHospitalBloodModule,
+    PatientsModule,
+    DonationsModule,
+    RequestsModule,
+    HospitalsModule,
   ],
 })
 export class AppModule {}
