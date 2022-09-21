@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { AuthModule } from './auth/auth.module';
+import { bloodRhFactor } from './blood-rh-factor/blood-rh-factor.model';
+import { BloodRhFactorModule } from './blood-rh-factor/blood-rh-factor.module';
+import { Blood } from './blood/blood.model';
+import { BloodModule } from './blood/blood.module';
+import { bloodGroup } from './bloodGroup/bloodGroup.model';
+import { BloodGroupModule } from './bloodGroup/bloodGroup.module';
+import { UserRoles } from './roles/roles-user.model';
 import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { UserRoles } from './roles/roles-user.model';
-import { BloodModule } from './blood/blood.module';
-import { Blood } from './blood/blood.model';
-import { BloodGroupModule } from './bloodGroup/bloodGroup.module';
-import { bloodGroup } from './bloodGroup/bloodGroup.model';
 
 @Module({
   controllers: [],
@@ -26,7 +28,7 @@ import { bloodGroup } from './bloodGroup/bloodGroup.model';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Blood, bloodGroup],
+      models: [User, Role, UserRoles, Blood, bloodGroup, bloodRhFactor],
       autoLoadModels: true,
     }),
     UsersModule,
@@ -34,6 +36,7 @@ import { bloodGroup } from './bloodGroup/bloodGroup.model';
     AuthModule,
     BloodModule,
     BloodGroupModule,
+    BloodRhFactorModule,
   ],
 })
 export class AppModule {}
