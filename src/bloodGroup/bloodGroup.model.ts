@@ -6,7 +6,7 @@ interface bloodGroupCreationAttrs {
 }
 
 @Table({ tableName: 'blood_group', createdAt: false, updatedAt: false })
-export class bloodGroup extends Model<bloodGroup, bloodGroupCreationAttrs> {
+export class BloodGroup extends Model<BloodGroup, bloodGroupCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

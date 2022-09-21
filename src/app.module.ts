@@ -6,7 +6,7 @@ import { bloodRhFactor } from './blood-rh-factor/blood-rh-factor.model';
 import { BloodRhFactorModule } from './blood-rh-factor/blood-rh-factor.module';
 import { Blood } from './blood/blood.model';
 import { BloodModule } from './blood/blood.module';
-import { bloodGroup } from './bloodGroup/bloodGroup.model';
+import { BloodGroup } from './bloodGroup/bloodGroup.model';
 import { BloodGroupModule } from './bloodGroup/bloodGroup.module';
 import { UserRoles } from './roles/roles-user.model';
 import { Role } from './roles/roles.model';
@@ -28,7 +28,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, Blood, bloodGroup, bloodRhFactor],
+      models: [User, Role, UserRoles, Blood, BloodGroup, bloodRhFactor],
       autoLoadModels: true,
     }),
     UsersModule,

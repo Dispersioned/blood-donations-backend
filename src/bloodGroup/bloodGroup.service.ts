@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { bloodGroup } from './bloodGroup.model';
+import { BloodGroup } from './bloodGroup.model';
 
 @Injectable()
 export class BloodGroupService {
-  constructor(@InjectModel(bloodGroup) private readonly bloodGroupRepository: typeof bloodGroup) {}
+  constructor(@InjectModel(BloodGroup) private readonly bloodGroupRepository: typeof BloodGroup) {}
 
   async getAll() {
     const bloods = await this.bloodGroupRepository.findAll();
