@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { BloodGroup } from './bloodGroup.model';
+import { BloodGroup } from './blood-group.model';
 
 @Injectable()
 export class BloodGroupService {

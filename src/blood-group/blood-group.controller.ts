@@ -1,5 +1,5 @@
 import { Controller, Get, Post } from '@nestjs/common';
-import { BloodGroupService } from './bloodGroup.service';
+import { BloodGroupService } from './blood-group.service';
 
 @Controller('blood-group')
 export class BloodGroupController {

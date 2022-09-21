@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { BloodGroupController } from './bloodGroup.controller';
-import { BloodGroup } from './bloodGroup.model';
-import { BloodGroupService } from './bloodGroup.service';
+import { BloodGroupController } from './blood-group.controller';
+import { BloodGroup } from './blood-group.model';
+import { BloodGroupService } from './blood-group.service';
 
 @Module({
   controllers: [BloodGroupController],
