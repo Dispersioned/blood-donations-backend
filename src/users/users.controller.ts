@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/role-auth.decorator';
 import { RolesGuard } from 'src/auth/role.guard';
 import { createUserDto } from './dto/create-user-dto';
