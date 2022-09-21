@@ -1,4 +1,4 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { HospitalBlood } from 'src/hospital-blood/hospitals-blood.model';
 import { Role } from 'src/roles/roles.model';
 import { User } from 'src/users/users.model';
@@ -43,4 +43,7 @@ export class Donation extends Model<Donation, DonationCreationAttrs> {
 
   @BelongsTo(() => HospitalBlood)
   hospitalBlood: HospitalBlood;
+
+  @HasOne(() => User)
+  user: User;
 }
