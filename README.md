@@ -1,3 +1,6 @@
+### Todo
+1. Скрипт создания юзеров ролей и прочего
+
 ### How to start
 1. Create `.development.env` and `.production.env` from  `.env.example`
 2. Setup postgres db
