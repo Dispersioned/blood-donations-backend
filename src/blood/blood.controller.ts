@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { BloodService } from './blood.service';
-import { createBloodDto } from './dto/create-blood-dto';
 
 @Controller('blood')
 export class BloodController {
@@ -12,7 +11,7 @@ export class BloodController {
   }
 
   @Post()
-  create(@Body() bloodDto: createBloodDto) {
-    return this.bloodService.createBlood(bloodDto);
+  createAllBloods() {
+    return this.bloodService.createAllBloods();
   }
 }

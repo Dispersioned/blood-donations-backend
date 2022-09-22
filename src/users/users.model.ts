@@ -1,4 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
+import { Donation } from 'src/donations/donations.model';
+import { Patient } from 'src/patients/patients.model';
 import { Role } from 'src/roles/roles.model';
 
 interface UserCreationAttrs {
@@ -38,4 +40,7 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @BelongsTo(() => Role)
   role: Role;
+
+  @HasMany(() => Donation)
+  donations: Donation[];
 }

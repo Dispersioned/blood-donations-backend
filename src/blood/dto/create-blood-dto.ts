@@ -1,4 +1,6 @@
+import { IBloodGroup, IBloodRhFactor } from '../blood.model';
+
 export class createBloodDto {
-  group: '' | 'A' | 'B' | 'AB';
-  rhFactor: '+' | '-';
+  readonly group: IBloodGroup;
+  readonly rhFactor: IBloodRhFactor;
 }

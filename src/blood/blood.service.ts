@@ -12,8 +12,21 @@ export class BloodService {
     return bloods;
   }
 
-  async createBlood(dto: createBloodDto) {
+  private async createBlood(dto: createBloodDto) {
     const blood = await this.bloodRepository.create(dto);
     return blood;
+  }
+
+  async createAllBloods() {
+    await this.createBlood({ group: '', rhFactor: '-' });
+    await this.createBlood({ group: '', rhFactor: '+' });
+    await this.createBlood({ group: 'A', rhFactor: '-' });
+    await this.createBlood({ group: 'A', rhFactor: '+' });
+    await this.createBlood({ group: 'B', rhFactor: '-' });
+    await this.createBlood({ group: 'B', rhFactor: '+' });
+    await this.createBlood({ group: 'AB', rhFactor: '-' });
+    await this.createBlood({ group: 'AB', rhFactor: '+' });
+    const bloods = await this.getAll();
+    return bloods;
   }
 }

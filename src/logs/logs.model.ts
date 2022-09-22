@@ -1,12 +1,12 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
-import { IBloodGroup } from './types';
 
-interface bloodGroupCreationAttrs {
-  value: IBloodGroup;
-}
+// interface HospitalCreationAttrs {
+//   name: string;
+//   location: string;
+// }
 
-@Table({ tableName: 'blood_group', createdAt: false, updatedAt: false })
-export class BloodGroup extends Model<BloodGroup, bloodGroupCreationAttrs> {
+@Table({ tableName: 'logs' })
+export class Logs extends Model<Logs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -20,5 +20,11 @@ export class BloodGroup extends Model<BloodGroup, bloodGroupCreationAttrs> {
     unique: true,
     allowNull: false,
   })
-  value: IBloodGroup;
+  action: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  data: number;
 }

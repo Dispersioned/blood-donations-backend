@@ -1,11 +1,15 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
-// interface BloodCreationAttrs {
+export type IBloodGroup = '' | 'A' | 'B' | 'AB';
+export type IBloodRhFactor = '+' | '-';
 
-// }
+interface BloodCreationAttrs {
+  group: IBloodGroup;
+  rhFactor: IBloodRhFactor;
+}
 
 @Table({ tableName: 'blood' })
-export class Blood extends Model<Blood> {
+export class Blood extends Model<Blood, BloodCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -14,6 +18,13 @@ export class Blood extends Model<Blood> {
   })
   id: number;
 
-  group: '' | 'A' | 'B' | 'AB';
-  rhFactor: '+' | '-';
+  @Column({
+    type: DataType.ENUM('', 'A', 'B', 'AB'),
+  })
+  group: IBloodGroup;
+
+  @Column({
+    type: DataType.ENUM('+', '-'),
+  })
+  rhFactor: IBloodRhFactor;
 }
