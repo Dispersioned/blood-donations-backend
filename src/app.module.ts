@@ -11,14 +11,15 @@ import { HospitalBlood } from './hospital-blood/hospitals-blood.model';
 import { Hospital } from './hospitals/hospitals.model';
 import { HospitalsModule } from './hospitals/hospitals.module';
 import { LogsModule } from './logs/logs.module';
+import { Patient } from './patients/patients.model';
 import { PatientsModule } from './patients/patients.module';
 import { RequestHospitalBloodModule } from './request-hospital-blood/request-hospital-blood.module';
+import { Request } from './requests/requests.model';
 import { RequestsModule } from './requests/requests.module';
 import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
-import { Patient } from './patients/patients.model';
 
 @Module({
   controllers: [],
@@ -34,7 +35,7 @@ import { Patient } from './patients/patients.model';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, Blood, Donation, Hospital, HospitalBlood, Patient],
+      models: [User, Role, Blood, Donation, Hospital, HospitalBlood, Patient, Request],
       autoLoadModels: true,
     }),
     UsersModule,

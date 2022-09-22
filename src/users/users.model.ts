@@ -1,16 +1,5 @@
-import {
-  BelongsTo,
-  BelongsToMany,
-  Column,
-  DataType,
-  ForeignKey,
-  HasMany,
-  HasOne,
-  Model,
-  Table,
-} from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Donation } from 'src/donations/donations.model';
-import { Hospital } from 'src/hospitals/hospitals.model';
 import { Patient } from 'src/patients/patients.model';
 import { Role } from 'src/roles/roles.model';
 
