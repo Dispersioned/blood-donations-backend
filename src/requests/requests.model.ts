@@ -51,4 +51,7 @@ export class Request extends Model<Request, RequestCreationAttrs> {
 
   @BelongsTo(() => Blood)
   blood: Blood;
+
+  // @HasMany(() => RequestHospitalBlood)
+  // requestHospitalBloods: RequestHospitalBloodModule[];
 }

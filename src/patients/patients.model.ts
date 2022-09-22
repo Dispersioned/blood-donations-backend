@@ -1,6 +1,5 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { Hospital } from 'src/hospitals/hospitals.model';
-import { Request } from 'src/requests/requests.model';
 import { User } from 'src/users/users.model';
 
 @Table({ tableName: 'patients' })
@@ -29,11 +28,8 @@ export class Patient extends Model<Patient> {
   })
   hospitalId: number;
 
-  @HasOne(() => User)
+  @BelongsTo(() => User)
   user: User;
-
-  @HasMany(() => Request)
-  requests: Request[];
 
   @BelongsTo(() => Hospital)
   hospital: Hospital;

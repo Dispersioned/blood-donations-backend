@@ -1,15 +1,15 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { HospitalBlood } from 'src/hospital-blood/hospital-blood.model';
-import { User } from 'src/users/users.model';
+import { Request } from 'src/requests/requests.model';
 
-interface DonationCreationAttrs {
-  userId: number;
-  hospitalBloodId: number;
+interface RequestHospitalBloodCreationAttrs {
+  patientId: string;
+  bloodId: string;
   volume: number;
 }
 
-@Table({ tableName: 'donations' })
-export class Donation extends Model<Donation, DonationCreationAttrs> {
+@Table({ tableName: 'request_hospital_blood' })
+export class RequestHospitalBlood extends Model<RequestHospitalBlood, RequestHospitalBloodCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -18,13 +18,13 @@ export class Donation extends Model<Donation, DonationCreationAttrs> {
   })
   id: number;
 
-  @ForeignKey(() => User)
+  @ForeignKey(() => Request)
   @Column({
-    field: 'user_id',
+    field: 'request_id',
     type: DataType.INTEGER,
     allowNull: false,
   })
-  userId: number;
+  requestId: number;
 
   @ForeignKey(() => HospitalBlood)
   @Column({
@@ -40,8 +40,8 @@ export class Donation extends Model<Donation, DonationCreationAttrs> {
   })
   volume: number;
 
-  @BelongsTo(() => User)
-  user: User;
+  @BelongsTo(() => Request)
+  request: Request;
 
   @BelongsTo(() => HospitalBlood)
   hospitalBlood: HospitalBlood;

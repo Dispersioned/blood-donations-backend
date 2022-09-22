@@ -34,4 +34,7 @@ export class HospitalBlood extends Model<HospitalBlood> {
 
   @HasMany(() => Donation)
   donations: Donation[];
+
+  // @HasMany(() => RequestHospitalBlood)
+  // requestHospitalBlood: RequestHospitalBlood[];
 }
