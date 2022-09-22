@@ -38,6 +38,7 @@ import { UsersModule } from './users/users.module';
       database: process.env.POSTGRES_DB,
       models: [User, Role, Blood, Donation, Hospital, HospitalBlood, Patient, Request, RequestHospitalBlood],
       autoLoadModels: true,
+      sync: { alter: true },
     }),
     UsersModule,
     RolesModule,
