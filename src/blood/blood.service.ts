@@ -12,6 +12,16 @@ export class BloodService {
     return bloods;
   }
 
+  async getBloodByValue(value: createBloodDto) {
+    const blood = await this.bloodRepository.findOne({
+      where: {
+        group: value.group,
+        rhFactor: value.rhFactor,
+      },
+    });
+    return blood;
+  }
+
   private async createBlood(dto: createBloodDto) {
     const blood = await this.bloodRepository.create(dto);
     return blood;

@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { BloodService } from 'src/blood/blood.service';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
 import { createUserDto } from './dto/create-user-dto';
@@ -10,7 +11,8 @@ export class UsersService {
   constructor(
     @InjectModel(User)
     private readonly userRepository: typeof User,
-    private readonly roleService: RolesService
+    private readonly roleService: RolesService,
+    private readonly bloodService: BloodService
   ) {}
 
   async createUser(dto: createUserDto) {
@@ -19,6 +21,9 @@ export class UsersService {
     await user.$set('role', role.id);
     // return user with role, because $set doesn't mutate initial data
     user.role = role;
+    const blood = await this.bloodService.getBloodByValue(dto.blood);
+    await user.$set('blood', blood.id);
+    user.blood = blood;
     return user;
   }
 

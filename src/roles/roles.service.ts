@@ -17,6 +17,7 @@ export class RolesService {
     await this.createRole({ value: 'ADMIN' });
     await this.createRole({ value: 'PATIENT' });
     await this.createRole({ value: 'DOCTOR' });
+    return 'ALL ROLES CREATED';
   }
 
   async getRoleByValue(value: string) {
