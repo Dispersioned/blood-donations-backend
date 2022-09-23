@@ -21,6 +21,19 @@ export class UsersService {
     const user = await this.createAny({ ...dto, role: 'DONOR' });
     return user;
   }
+  async createDoctor(dto: createUserDto) {
+    const user = await this.createAny({ ...dto, role: 'DOCTOR' });
+    return user;
+  }
+  async createAdmin(dto: createUserDto) {
+    const user = await this.createAny({ ...dto, role: 'ADMIN' });
+    return user;
+  }
+  // TODO: create Patient module first
+  // async createPatient(dto: createUserDto) {
+  //   const user = await this.createAny({ ...dto, role: 'PATIENT' });
+  //   return user;
+  // }
 
   private async createAny(dto: createAnyDto) {
     const user = await this.userRepository.create(dto);
