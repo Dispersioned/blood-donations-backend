@@ -2,6 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from '
 import { Blood } from 'src/blood/blood.model';
 import { Donation } from 'src/donations/donations.model';
 import { Hospital } from 'src/hospitals/hospitals.model';
+import { RequestHospitalBlood } from 'src/request-hospital-blood/request-hospital-blood.model';
 
 @Table({ tableName: 'hospital_blood' })
 export class HospitalBlood extends Model<HospitalBlood> {
@@ -35,6 +36,6 @@ export class HospitalBlood extends Model<HospitalBlood> {
   @HasMany(() => Donation)
   donations: Donation[];
 
-  // @HasMany(() => RequestHospitalBlood)
-  // requestHospitalBlood: RequestHospitalBlood[];
+  @HasMany(() => RequestHospitalBlood)
+  requestHospitalBlood: RequestHospitalBlood[];
 }
