@@ -1,8 +1,10 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { User } from 'src/users/users.model';
 
+export type IRoleName = 'DONOR' | 'PATIENT' | 'DOCTOR' | 'ADMIN';
+
 interface RoleCreationAttrs {
-  value: string;
+  value: IRoleName;
   description: string;
 }
 
@@ -21,7 +23,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
     unique: true,
     allowNull: false,
   })
-  value: string;
+  value: IRoleName;
 
   @HasMany(() => User)
   users: User[];

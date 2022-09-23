@@ -1,3 +1,5 @@
+import { IRoleName } from '../roles.model';
+
 export class createRoleDto {
-  readonly value: string;
+  readonly value: IRoleName;
 }

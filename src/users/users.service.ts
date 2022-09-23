@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BloodService } from 'src/blood/blood.service';
-import { Role } from 'src/roles/roles.model';
+import { createRoleDto } from 'src/roles/dto/create-role-dto';
+import { IRoleName, Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
+import { createAnyDto } from './dto/create-any-dto';
 import { createUserDto } from './dto/create-user-dto';
 import { User } from './users.model';
 
@@ -15,9 +17,14 @@ export class UsersService {
     private readonly bloodService: BloodService
   ) {}
 
-  async createUser(dto: createUserDto) {
+  async createDonor(dto: createUserDto) {
+    const user = await this.createAny({ ...dto, role: 'DONOR' });
+    return user;
+  }
+
+  private async createAny(dto: createAnyDto) {
     const user = await this.userRepository.create(dto);
-    const role = await this.roleService.getRoleByValue('DONOR');
+    const role = await this.roleService.getRoleByValue(dto.role);
     await user.$set('role', role.id);
     // return user with role, because $set doesn't mutate initial data
     user.role = role;
