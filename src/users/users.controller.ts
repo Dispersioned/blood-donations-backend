@@ -8,9 +8,18 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() userDto: createUserDto) {
-    return this.usersService.createUser(userDto);
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
+  @Post('doctor')
+  createDoctor(@Body() dto: createUserDto) {
+    return this.usersService.createDoctor(dto);
+  }
+
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
+  @Post('admin')
+  createAdmin(@Body() dto: createUserDto) {
+    return this.usersService.createAdmin(dto);
   }
 
   @Roles('ADMIN')
