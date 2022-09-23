@@ -17,6 +17,7 @@ export class UsersService {
     private readonly bloodService: BloodService
   ) {}
 
+  // TODO: requires extra bl when other modules done
   async createDonor(dto: createUserDto) {
     const user = await this.createAny({ ...dto, role: 'DONOR' });
     return user;
