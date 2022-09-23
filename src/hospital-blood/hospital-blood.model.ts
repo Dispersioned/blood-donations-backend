@@ -4,8 +4,13 @@ import { Donation } from 'src/donations/donations.model';
 import { Hospital } from 'src/hospitals/hospitals.model';
 import { RequestHospitalBlood } from 'src/request-hospital-blood/request-hospital-blood.model';
 
+interface HospitalBloodCreationAttrs {
+  hospitalId: number;
+  bloodId: number;
+}
+
 @Table({ tableName: 'hospital_blood' })
-export class HospitalBlood extends Model<HospitalBlood> {
+export class HospitalBlood extends Model<HospitalBlood, HospitalBloodCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
