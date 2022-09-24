@@ -3,8 +3,8 @@ import { HospitalBlood } from 'src/hospital-blood/hospital-blood.model';
 import { Request } from 'src/requests/requests.model';
 
 interface TransferCreationAttrs {
-  patientId: string;
-  bloodId: string;
+  requestId: number;
+  bloodId: number;
   volume: number;
 }
 

@@ -2,11 +2,10 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from '
 import { Blood } from 'src/blood/blood.model';
 import { Patient } from 'src/patients/patients.model';
 import { Transfer } from 'src/transfers/transfers.model';
-import { TransfersModule } from 'src/transfers/transfers.module';
 
 interface RequestCreationAttrs {
-  patientId: string;
-  bloodId: string;
+  patientId: number;
+  bloodId: number;
   volume: number;
 }
 
@@ -55,5 +54,5 @@ export class Request extends Model<Request, RequestCreationAttrs> {
   blood: Blood;
 
   @HasMany(() => Transfer)
-  transfers: TransfersModule[];
+  transfers: Transfer[];
 }

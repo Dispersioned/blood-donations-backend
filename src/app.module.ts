@@ -13,12 +13,12 @@ import { HospitalsModule } from './hospitals/hospitals.module';
 import { LoggerModule } from './logger/logger.module';
 import { Patient } from './patients/patients.model';
 import { PatientsModule } from './patients/patients.module';
-import { Transfer } from './transfers/transfers.model';
-import { TransfersModule } from './transfers/transfers.module';
 import { Request } from './requests/requests.model';
 import { RequestsModule } from './requests/requests.module';
 import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
+import { Transfer } from './transfers/transfers.model';
+import { TransfersModule } from './transfers/transfers.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 
