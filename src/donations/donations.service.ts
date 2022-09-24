@@ -21,7 +21,7 @@ export class DonationsService {
     const user = await this.usersService.getUserById(dto.userId);
     if (!user) throw new BadRequestException('Пользователь не найден');
 
-    const hospital = await this.hospitalsService.findById(dto.hospitalId);
+    const hospital = await this.hospitalsService.getById(dto.hospitalId);
     if (!hospital) throw new BadRequestException('Больница не найдена');
 
     const hospitalBlood = await this.hospitalBloodService.findExact(hospital.id, user.bloodId);

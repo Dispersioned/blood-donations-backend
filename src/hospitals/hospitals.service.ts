@@ -17,7 +17,7 @@ export class HospitalsService {
     return hospital;
   }
 
-  async findById(id: number) {
+  async getById(id: number) {
     const hospital = await this.hospitalsRepository.findOne({
       where: {
         id,
