@@ -4,7 +4,7 @@ import { Request } from 'src/requests/requests.model';
 
 interface TransferCreationAttrs {
   requestId: number;
-  bloodId: number;
+  hospitalBloodId: number;
   volume: number;
 }
 
