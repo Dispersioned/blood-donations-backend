@@ -3,11 +3,13 @@ import { Blood } from 'src/blood/blood.model';
 import { Patient } from 'src/patients/patients.model';
 import { Transfer } from 'src/transfers/transfers.model';
 
+type IRequestStatus = 'fulfilled' | 'pending';
+
 interface RequestCreationAttrs {
   patientId: number;
   bloodId: number;
   volume: number;
-  status: 'fulfilled' | 'pending';
+  status: IRequestStatus;
 }
 
 @Table({ tableName: 'requests' })
@@ -46,7 +48,7 @@ export class Request extends Model<Request, RequestCreationAttrs> {
     type: DataType.ENUM('fulfilled', 'pending'),
     allowNull: false,
   })
-  status: 'fulfilled' | 'pending';
+  status: IRequestStatus;
 
   @BelongsTo(() => Patient)
   patient: Patient;
