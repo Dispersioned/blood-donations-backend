@@ -7,6 +7,7 @@ interface RequestCreationAttrs {
   patientId: number;
   bloodId: number;
   volume: number;
+  status: 'fulfilled' | 'pending';
 }
 
 @Table({ tableName: 'requests' })
