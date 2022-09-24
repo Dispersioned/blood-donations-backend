@@ -13,6 +13,8 @@ export class HospitalBloodService {
 
   async createHospitalBlood(dto: CreateHospitalBloodDto) {
     const hospitalBlood = await this.hospitalBloodRepository.create(dto);
+    await hospitalBlood.$set('hospital', dto.hospitalId);
+    await hospitalBlood.$set('blood', dto.bloodId);
     return hospitalBlood;
   }
 

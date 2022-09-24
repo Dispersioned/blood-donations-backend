@@ -35,6 +35,9 @@ export class HospitalBlood extends Model<HospitalBlood, HospitalBloodCreationAtt
   })
   bloodId: number;
 
+  @BelongsTo(() => Blood)
+  blood: Blood;
+
   @BelongsTo(() => Hospital)
   hospital: Hospital;
 
