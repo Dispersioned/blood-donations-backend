@@ -60,6 +60,16 @@ export class UsersService {
     return users;
   }
 
+  async getUserById(id: number) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    console.log(user);
+    return user;
+  }
+
   async getUserByUsername(username: string) {
     const user = await this.userRepository.findOne({
       where: { username },
