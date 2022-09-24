@@ -5,8 +5,8 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 //   location: string;
 // }
 
-@Table({ tableName: 'logs' })
-export class Logs extends Model<Logs> {
+@Table({ tableName: 'logger' })
+export class Logger extends Model<Logger> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

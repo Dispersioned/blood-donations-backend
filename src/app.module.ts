@@ -10,7 +10,7 @@ import { HospitalBlood } from './hospital-blood/hospital-blood.model';
 import { HospitalBloodModule } from './hospital-blood/hospital-blood.module';
 import { Hospital } from './hospitals/hospitals.model';
 import { HospitalsModule } from './hospitals/hospitals.module';
-import { LogsModule } from './logs/logs.module';
+import { LoggerModule } from './logger/logger.module';
 import { Patient } from './patients/patients.model';
 import { PatientsModule } from './patients/patients.module';
 import { RequestHospitalBlood } from './request-hospital-blood/request-hospital-blood.model';
@@ -44,7 +44,7 @@ import { UsersModule } from './users/users.module';
     RolesModule,
     AuthModule,
     BloodModule,
-    LogsModule,
+    LoggerModule,
     HospitalBloodModule,
     RequestHospitalBloodModule,
     PatientsModule,
