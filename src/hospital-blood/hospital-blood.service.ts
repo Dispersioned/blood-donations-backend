@@ -13,6 +13,8 @@ export class HospitalBloodService {
 
   async createHospitalBlood(dto: CreateHospitalBloodDto) {
     const hospitalBlood = await this.hospitalBloodRepository.create(dto);
+    await hospitalBlood.$set('hospital', dto.hospitalId);
+    await hospitalBlood.$set('blood', dto.bloodId);
     return hospitalBlood;
   }
 
@@ -22,6 +24,25 @@ export class HospitalBloodService {
     bloods.forEach(async (blood) => {
       await this.createHospitalBlood({ bloodId: blood.id, hospitalId });
     });
+  }
+
+  async findById(id: number) {
+    const hospitalBlood = await this.hospitalBloodRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+    return hospitalBlood;
+  }
+
+  async findExact(hospitalId: number, bloodId: number) {
+    const hospitalBlood = await this.hospitalBloodRepository.findOne({
+      where: {
+        hospitalId,
+        bloodId,
+      },
+    });
+    return hospitalBlood;
   }
 
   // Don't think it's needed...

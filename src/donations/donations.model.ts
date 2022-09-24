@@ -22,7 +22,6 @@ export class Donation extends Model<Donation, DonationCreationAttrs> {
   @Column({
     field: 'user_id',
     type: DataType.INTEGER,
-    allowNull: false,
   })
   userId: number;
 
@@ -30,7 +29,6 @@ export class Donation extends Model<Donation, DonationCreationAttrs> {
   @Column({
     field: 'hospital_blood_id',
     type: DataType.INTEGER,
-    allowNull: false,
   })
   hospitalBloodId: number;
 

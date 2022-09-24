@@ -17,6 +17,15 @@ export class HospitalsService {
     return hospital;
   }
 
+  async getById(id: number) {
+    const hospital = await this.hospitalsRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    return hospital;
+  }
+
   async getAll() {
     const hospitals = await this.hospitalsRepository.findAll();
     return hospitals;
