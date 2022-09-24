@@ -55,5 +55,5 @@ export class Request extends Model<Request, RequestCreationAttrs> {
   blood: Blood;
 
   @HasMany(() => Transfer)
-  requestHospitalBloods: TransfersModule[];
+  transfers: TransfersModule[];
 }

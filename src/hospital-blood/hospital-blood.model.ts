@@ -45,5 +45,5 @@ export class HospitalBlood extends Model<HospitalBlood, HospitalBloodCreationAtt
   donations: Donation[];
 
   @HasMany(() => Transfer)
-  requestHospitalBlood: Transfer[];
+  transfers: Transfer[];
 }
