@@ -3,8 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { BloodService } from 'src/blood/blood.service';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
-import { createAnyDto } from './dto/create-any-dto';
-import { createUserDto } from './dto/create-user-dto';
+import { createAnyDto } from './dto/create-any.dto';
+import { createUserDto } from './dto/create-user.dto';
 import { User } from './users.model';
 
 @Injectable()

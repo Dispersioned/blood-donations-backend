@@ -1,4 +1,4 @@
-import { createBloodDto } from 'src/blood/dto/create-blood-dto';
+import { createBloodDto } from 'src/blood/dto/create-blood.dto';
 import { IRoleName } from 'src/roles/roles.model';
 
 export class createAnyDto {
