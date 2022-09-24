@@ -1,6 +1,8 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Blood } from 'src/blood/blood.model';
 import { Patient } from 'src/patients/patients.model';
+import { RequestHospitalBlood } from 'src/request-hospital-blood/request-hospital-blood.model';
+import { RequestHospitalBloodModule } from 'src/request-hospital-blood/request-hospital-blood.module';
 
 interface RequestCreationAttrs {
   patientId: string;
@@ -52,6 +54,6 @@ export class Request extends Model<Request, RequestCreationAttrs> {
   @BelongsTo(() => Blood)
   blood: Blood;
 
-  // @HasMany(() => RequestHospitalBlood)
-  // requestHospitalBloods: RequestHospitalBloodModule[];
+  @HasMany(() => RequestHospitalBlood)
+  requestHospitalBloods: RequestHospitalBloodModule[];
 }
