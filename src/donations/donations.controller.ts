@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { DonationsService } from './donations.service';
 import { createDonationDto } from './dto/create-donation-dto';
 
@@ -9,5 +9,10 @@ export class DonationsController {
   @Post('make')
   makeDonation(@Body() dto: createDonationDto) {
     return this.donationsService.createDonation(dto);
+  }
+
+  @Get()
+  getAllDonations() {
+    return this.donationsService.getAll();
   }
 }

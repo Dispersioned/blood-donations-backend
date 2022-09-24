@@ -30,4 +30,9 @@ export class DonationsService {
     await donation.$set('hospitalBlood', hospitalBlood.id);
     return donation;
   }
+
+  async getAll() {
+    const donations = await this.donationsRepository.findAll();
+    return donations;
+  }
 }
