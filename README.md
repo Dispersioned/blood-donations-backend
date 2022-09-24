@@ -1,5 +1,8 @@
 ### Todo
-1. Скрипт создания юзеров ролей и прочего
+1. Скрипт инициализирующий скрипт
+### Plans
+1. Поменять sequelize на typeORM
+2. Перейти с CRUD на graphQL
 
 ### How to start
 1. Create `.development.env` and `.production.env` from  `.env.example`
