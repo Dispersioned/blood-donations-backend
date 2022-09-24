@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { createTransferDto } from './dto/create-transfer.dto';
 import { Transfer } from './transfers.model';
@@ -7,5 +7,7 @@ import { Transfer } from './transfers.model';
 export class TransfersService {
   constructor(@InjectModel(Transfer) private readonly transferRepository: typeof Transfer) {}
 
-  async createTransfer(dto: createTransferDto) {}
+  async createTransfer(dto: createTransferDto) {
+    throw new NotImplementedException('requests module not done');
+  }
 }
