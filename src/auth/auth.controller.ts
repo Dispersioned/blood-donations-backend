@@ -1,4 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { registerPatientDto, registerUserDto } from './dto';
 import { Roles } from './role-auth.decorator';
@@ -7,7 +8,7 @@ import { Token } from './token.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly jwtService: JwtService) {}
 
   @Post('login')
   login(@Body() dto: registerUserDto) {
@@ -22,8 +23,9 @@ export class AuthController {
   @Roles('ADMIN', 'DOCTOR')
   @UseGuards(RolesGuard)
   @Post('register-patient')
-  registerPatient(@Body() dto: registerPatientDto, @Token() token: string) {
-    return this.authService.registerPatient({ ...dto, creatorRole: 'ADMIN' });
+  async registerPatient(@Body() dto: registerPatientDto, @Token() token: string) {
+    const user = await this.jwtService.verify(token);
+    return this.authService.registerPatient({ ...dto, creatorRole: user.role.value });
   }
 
   @Roles('ADMIN')
