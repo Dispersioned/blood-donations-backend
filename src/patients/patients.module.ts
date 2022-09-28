@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PatientsService } from './patients.service';
-import { PatientsController } from './patients.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { PatientsController } from './patients.controller';
 import { Patient } from './patients.model';
+import { PatientsService } from './patients.service';
 
 @Module({
   providers: [PatientsService],

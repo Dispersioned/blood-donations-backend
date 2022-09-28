@@ -1,10 +1,8 @@
-import { createParamDecorator, ExecutionContext, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BloodService } from 'src/blood/blood.service';
-import { PatientsService } from 'src/patients/patients.service';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
-import { createAnyDto } from './dto/create-any.dto';
 import { createUserDto } from './dto/create-user.dto';
 import { User } from './users.model';
 
@@ -17,32 +15,10 @@ export class UsersService {
     private readonly bloodService: BloodService
   ) {}
 
-  // TODO: requires extra bl when other modules done
-  async createDonor(dto: createUserDto) {
-    const user = await this.createAny({ ...dto, role: 'DONOR' });
-    return user;
-  }
-  async createDoctor(dto: createUserDto) {
-    const user = await this.createAny({ ...dto, role: 'DOCTOR' });
-    return user;
-  }
-  async createAdmin(dto: createUserDto) {
-    const user = await this.createAny({ ...dto, role: 'ADMIN' });
-    return user;
-  }
-  async createPatient(dto: createUserDto) {
-    const user = await this.createAny({ ...dto, role: 'PATIENT' });
-    // await this.patientsService.createPatient({
-    //   userId: user.id,
-    //   doctorId: dto.doctorId,
-    //   hospitalId: dto.hospitalId,
-    // });
-    return user;
-  }
-
-  private async createAny(dto: createAnyDto) {
+  async createUser(dto: createUserDto) {
     const user = await this.userRepository.create(dto);
     const role = await this.roleService.getRoleByValue(dto.role);
+    console.log(role);
     await user.$set('role', role.id);
     const blood = await this.bloodService.getBloodByValue(dto.blood);
     await user.$set('blood', blood.id);
@@ -76,5 +52,12 @@ export class UsersService {
       include: { all: true },
     });
     return user;
+  }
+
+  async getUserRole(userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+    return user.role;
   }
 }
