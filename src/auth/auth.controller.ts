@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { registerUserDto } from './dto/register-user.dto';
+import { registerUserDto } from './dto';
 import { Roles } from './role-auth.decorator';
 import { RolesGuard } from './role.guard';
 
