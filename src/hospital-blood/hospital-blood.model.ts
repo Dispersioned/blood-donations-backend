@@ -2,7 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from '
 import { Blood } from 'src/blood/blood.model';
 import { Donation } from 'src/donations/donations.model';
 import { Hospital } from 'src/hospitals/hospitals.model';
-import { RequestHospitalBlood } from 'src/request-hospital-blood/request-hospital-blood.model';
+import { Transfer } from 'src/transfers/transfers.model';
 
 interface HospitalBloodCreationAttrs {
   hospitalId: number;
@@ -44,6 +44,6 @@ export class HospitalBlood extends Model<HospitalBlood, HospitalBloodCreationAtt
   @HasMany(() => Donation)
   donations: Donation[];
 
-  @HasMany(() => RequestHospitalBlood)
-  requestHospitalBlood: RequestHospitalBlood[];
+  @HasMany(() => Transfer)
+  transfers: Transfer[];
 }

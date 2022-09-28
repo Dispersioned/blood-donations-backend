@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CreateHospitalDto } from './dto/create-hospital-dto';
+import { CreateHospitalDto } from './dto/create-hospital.dto';
 import { HospitalsService } from './hospitals.service';
 
 @Controller('hospitals')

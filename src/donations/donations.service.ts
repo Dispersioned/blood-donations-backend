@@ -5,7 +5,7 @@ import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service'
 import { HospitalsService } from 'src/hospitals/hospitals.service';
 import { UsersService } from 'src/users/users.service';
 import { Donation } from './donations.model';
-import { createDonationDto } from './dto/create-donation-dto';
+import { createDonationDto } from './dto/create-donation.dto';
 
 @Injectable()
 export class DonationsService {

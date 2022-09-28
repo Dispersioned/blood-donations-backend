@@ -2,14 +2,14 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { HospitalBlood } from 'src/hospital-blood/hospital-blood.model';
 import { Request } from 'src/requests/requests.model';
 
-interface RequestHospitalBloodCreationAttrs {
-  patientId: string;
-  bloodId: string;
+interface TransferCreationAttrs {
+  requestId: number;
+  hospitalBloodId: number;
   volume: number;
 }
 
-@Table({ tableName: 'request_hospital_blood' })
-export class RequestHospitalBlood extends Model<RequestHospitalBlood, RequestHospitalBloodCreationAttrs> {
+@Table({ tableName: 'transfers' })
+export class Transfer extends Model<Transfer, TransferCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

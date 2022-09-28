@@ -13,12 +13,12 @@ import { HospitalsModule } from './hospitals/hospitals.module';
 import { LoggerModule } from './logger/logger.module';
 import { Patient } from './patients/patients.model';
 import { PatientsModule } from './patients/patients.module';
-import { RequestHospitalBlood } from './request-hospital-blood/request-hospital-blood.model';
-import { RequestHospitalBloodModule } from './request-hospital-blood/request-hospital-blood.module';
 import { Request } from './requests/requests.model';
 import { RequestsModule } from './requests/requests.module';
 import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
+import { Transfer } from './transfers/transfers.model';
+import { TransfersModule } from './transfers/transfers.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 
@@ -36,7 +36,7 @@ import { UsersModule } from './users/users.module';
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, Blood, Donation, Hospital, HospitalBlood, Patient, Request, RequestHospitalBlood],
+      models: [User, Role, Blood, Donation, Hospital, HospitalBlood, Patient, Request, Transfer],
       autoLoadModels: true,
       retryAttempts: 1,
     }),
@@ -46,7 +46,7 @@ import { UsersModule } from './users/users.module';
     BloodModule,
     LoggerModule,
     HospitalBloodModule,
-    RequestHospitalBloodModule,
+    TransfersModule,
     PatientsModule,
     DonationsModule,
     RequestsModule,

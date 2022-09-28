@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
-import { CreateHospitalDto } from './dto/create-hospital-dto';
+import { CreateHospitalDto } from './dto/create-hospital.dto';
 import { Hospital } from './hospitals.model';
 
 @Injectable()

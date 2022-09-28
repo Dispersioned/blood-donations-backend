@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { createPatientDto } from './dto/create-patient-dto';
+import { createPatientDto } from './dto/create-patient.dto';
 import { Patient } from './patients.model';
 
 @Injectable()

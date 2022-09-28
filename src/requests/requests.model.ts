@@ -1,11 +1,15 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Blood } from 'src/blood/blood.model';
 import { Patient } from 'src/patients/patients.model';
+import { Transfer } from 'src/transfers/transfers.model';
+
+type IRequestStatus = 'fulfilled' | 'pending';
 
 interface RequestCreationAttrs {
-  patientId: string;
-  bloodId: string;
+  patientId: number;
+  bloodId: number;
   volume: number;
+  status: IRequestStatus;
 }
 
 @Table({ tableName: 'requests' })
@@ -44,7 +48,7 @@ export class Request extends Model<Request, RequestCreationAttrs> {
     type: DataType.ENUM('fulfilled', 'pending'),
     allowNull: false,
   })
-  status: 'fulfilled' | 'pending';
+  status: IRequestStatus;
 
   @BelongsTo(() => Patient)
   patient: Patient;
@@ -52,6 +56,6 @@ export class Request extends Model<Request, RequestCreationAttrs> {
   @BelongsTo(() => Blood)
   blood: Blood;
 
-  // @HasMany(() => RequestHospitalBlood)
-  // requestHospitalBloods: RequestHospitalBloodModule[];
+  @HasMany(() => Transfer)
+  transfers: Transfer[];
 }
