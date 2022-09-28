@@ -45,10 +45,15 @@ export class AuthService {
     if (!hospital) throw new BadRequestException('Больница не найдена');
 
     const doctor = await this.usersService.getUserById(dto.creator.id);
-    if (!doctor) throw new BadRequestException('Доктор не найден');
-    if (doctor.role.value !== 'DOCTOR') throw new BadRequestException('Куратор больного не является доктором');
-    if (doctor.id !== dto.doctorId)
+    if (!doctor) {
+      throw new BadRequestException('Доктор не найден');
+    }
+    if (doctor.role.value !== 'DOCTOR' && doctor.role.value !== 'ADMIN') {
+      throw new BadRequestException('Недостаточно прав');
+    }
+    if (doctor.role.value === 'DOCTOR' && doctor.id !== dto.doctorId) {
       throw new BadRequestException('Доктор не может назначить куратором больного другого доктора');
+    }
 
     const user = await this.register({ ...dto, role: 'PATIENT' });
     await this.patientsService.createPatient({
