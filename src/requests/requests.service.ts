@@ -13,4 +13,11 @@ export class RequestsService {
     await request.$set('blood', dto.bloodId);
     return request;
   }
+
+  async findById(id: number) {
+    const request = await this.requestRepository.findOne({
+      where: { id },
+    });
+    return request;
+  }
 }
