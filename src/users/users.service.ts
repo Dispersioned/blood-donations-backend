@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BloodService } from 'src/blood/blood.service';
+import { PatientsService } from 'src/patients/patients.service';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
 import { createAnyDto } from './dto/create-any.dto';
@@ -29,11 +30,15 @@ export class UsersService {
     const user = await this.createAny({ ...dto, role: 'ADMIN' });
     return user;
   }
-  // TODO: create Patient module first
-  // async createPatient(dto: createUserDto) {
-  //   const user = await this.createAny({ ...dto, role: 'PATIENT' });
-  //   return user;
-  // }
+  async createPatient(dto: createUserDto) {
+    const user = await this.createAny({ ...dto, role: 'PATIENT' });
+    // await this.patientsService.createPatient({
+    //   userId: user.id,
+    //   doctorId: dto.doctorId,
+    //   hospitalId: dto.hospitalId,
+    // });
+    return user;
+  }
 
   private async createAny(dto: createAnyDto) {
     const user = await this.userRepository.create(dto);

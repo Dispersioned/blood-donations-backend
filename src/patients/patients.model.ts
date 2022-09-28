@@ -20,6 +20,9 @@ export class Patient extends Model<Patient> {
   })
   userId: number;
 
+  @BelongsTo(() => User)
+  user: User;
+
   @ForeignKey(() => Hospital)
   @Column({
     field: 'hospital_id',
@@ -28,9 +31,17 @@ export class Patient extends Model<Patient> {
   })
   hospitalId: number;
 
-  @BelongsTo(() => User)
-  user: User;
-
   @BelongsTo(() => Hospital)
   hospital: Hospital;
+
+  @ForeignKey(() => User)
+  @Column({
+    field: 'doctor_id',
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  doctorId: number;
+
+  @BelongsTo(() => User)
+  doctor: User;
 }
