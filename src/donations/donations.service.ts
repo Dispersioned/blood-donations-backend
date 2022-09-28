@@ -24,7 +24,7 @@ export class DonationsService {
     const hospital = await this.hospitalsService.getById(dto.hospitalId);
     if (!hospital) throw new BadRequestException('Больница не найдена');
 
-    const hospitalBlood = await this.hospitalBloodService.findExact(hospital.id, user.bloodId);
+    const hospitalBlood = await this.hospitalBloodService.getExact(hospital.id, user.bloodId);
     const donation = await this.donationsRepository.create({ volume: dto.volume });
     await donation.$set('user', user.id);
     await donation.$set('hospitalBlood', hospitalBlood.id);
