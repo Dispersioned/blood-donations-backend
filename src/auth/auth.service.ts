@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { createUserDto } from 'src/users/dto/create-user.dto';
@@ -18,7 +18,6 @@ export class AuthService {
   }
 
   // TODO: requires extra bl when other modules done
-  // DONT CALL DIRECT
   async registerDonor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DONOR' });
     return user;
@@ -47,7 +46,7 @@ export class AuthService {
   private async register(dto: createUserDto) {
     const candidate = await this.usersService.getUserByUsername(dto.username);
     if (candidate) {
-      throw new HttpException('Пользователь с таким именем уже существует', HttpStatus.BAD_REQUEST);
+      throw new BadRequestException('Пользователь с таким именем уже существует');
     }
 
     const hashPassword = await bcrypt.hash(dto.password, 5);
@@ -65,10 +64,10 @@ export class AuthService {
 
   private async validateUser(userDto: validateUserDto) {
     const user = await this.usersService.getUserByUsername(userDto.username);
-    if (!user) throw new UnauthorizedException({ message: 'Пользователь не найден' });
+    if (!user) throw new UnauthorizedException('Пользователь не найден');
 
     const passwordEquals = await bcrypt.compare(userDto.password, user.password);
-    if (!passwordEquals) throw new UnauthorizedException({ message: 'Неправильный логин или пароль' });
+    if (!passwordEquals) throw new UnauthorizedException('Неправильный логин или пароль');
     return user;
   }
 
