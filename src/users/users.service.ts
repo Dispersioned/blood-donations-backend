@@ -41,6 +41,9 @@ export class UsersService {
 
   async getUserById(id: number) {
     const user = await this.userRepository.findOne({
+      include: {
+        model: Role,
+      },
       where: {
         id,
       },

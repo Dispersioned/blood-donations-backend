@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
+import { HospitalsService } from 'src/hospitals/hospitals.service';
 import { PatientsService } from 'src/patients/patients.service';
 import { createUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/users.model';
@@ -12,7 +13,8 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly patientsService: PatientsService
+    private readonly patientsService: PatientsService,
+    private readonly hospitalsService: HospitalsService
   ) {}
 
   async login(dto: loginUserDto) {
@@ -39,11 +41,19 @@ export class AuthService {
   }
 
   async registerPatient(dto: registerPatientByDto) {
-    const user = await this.register({ ...dto, role: 'PATIENT' });
+    const hospital = await this.hospitalsService.getById(dto.hospitalId);
+    if (!hospital) throw new BadRequestException('Больница не найдена');
 
+    const doctor = await this.usersService.getUserById(dto.creator.id);
+    if (!doctor) throw new BadRequestException('Доктор не найден');
+    if (doctor.role.value !== 'DOCTOR') throw new BadRequestException('Куратор больного не является доктором');
+    if (doctor.id !== dto.doctorId)
+      throw new BadRequestException('Доктор не может назначить куратором больного другого доктора');
+
+    const user = await this.register({ ...dto, role: 'PATIENT' });
     await this.patientsService.createPatient({
       userId: user.id,
-      doctorId: dto.creator.role.value === 'ADMIN' ? dto.doctorId : dto.creator.id,
+      doctorId: dto.doctorId,
       hospitalId: dto.hospitalId,
     });
     return user;
