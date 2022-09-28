@@ -18,10 +18,12 @@ export class UsersService {
   async createUser(dto: createUserDto) {
     const user = await this.userRepository.create(dto);
     const role = await this.roleService.getRoleByValue(dto.role);
-    console.log(role);
     await user.$set('role', role.id);
     const blood = await this.bloodService.getBloodByValue(dto.blood);
     await user.$set('blood', blood.id);
+    // needed to pass role & blood info in JWT token
+    user.role = role;
+    user.blood = blood;
     return user;
   }
 
