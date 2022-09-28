@@ -4,7 +4,7 @@ import * as bcrypt from 'bcryptjs';
 import { createUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
-import { loginUserDto, registerUserDto, validateUserDto } from './dto';
+import { loginUserDto, registerPatientDto, registerUserDto, validateUserDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -31,14 +31,16 @@ export class AuthService {
     return user;
   }
 
-  async registerPatient(dto: registerUserDto) {
-    const user = await this.register({ ...dto, role: 'PATIENT' });
+  async registerPatient(dto: registerPatientDto) {
+    console.log('new patient dto', dto);
+    // const user = await this.register({ ...dto, role: 'PATIENT' });
+
     // await this.patientsService.createPatient({
     //   userId: user.id,
     //   doctorId: dto.doctorId,
     //   hospitalId: dto.hospitalId,
     // });
-    return user;
+    // return user;
   }
 
   private async register(dto: createUserDto) {

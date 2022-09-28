@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { registerUserDto } from './dto';
+import { registerPatientDto, registerUserDto } from './dto';
 import { Roles } from './role-auth.decorator';
 import { RolesGuard } from './role.guard';
 
@@ -21,7 +21,7 @@ export class AuthController {
   @Roles('ADMIN', 'DOCTOR')
   @UseGuards(RolesGuard)
   @Post('register-patient')
-  registerPatient(@Body() dto: registerUserDto) {
+  registerPatient(@Body() dto: registerPatientDto) {
     return this.authService.registerPatient(dto);
   }
 
