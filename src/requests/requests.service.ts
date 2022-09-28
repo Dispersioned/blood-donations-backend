@@ -14,7 +14,7 @@ export class RequestsService {
     return request;
   }
 
-  async findById(id: number) {
+  async getById(id: number) {
     const request = await this.requestRepository.findOne({
       where: { id },
     });

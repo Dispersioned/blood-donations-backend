@@ -26,7 +26,7 @@ export class HospitalBloodService {
     });
   }
 
-  async findById(id: number) {
+  async getById(id: number) {
     const hospitalBlood = await this.hospitalBloodRepository.findOne({
       where: {
         id: id,
@@ -35,7 +35,7 @@ export class HospitalBloodService {
     return hospitalBlood;
   }
 
-  async findExact(hospitalId: number, bloodId: number) {
+  async getExact(hospitalId: number, bloodId: number) {
     const hospitalBlood = await this.hospitalBloodRepository.findOne({
       where: {
         hospitalId,

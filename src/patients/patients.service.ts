@@ -11,6 +11,7 @@ export class PatientsService {
     const patient = await this.patientsRepository.create(dto);
     await patient.$set('user', dto.userId);
     await patient.$set('hospital', dto.hospitalId);
+    await patient.$set('doctor', dto.doctorId);
     return patient;
   }
 }
