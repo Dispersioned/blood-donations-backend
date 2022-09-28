@@ -1,26 +1,23 @@
 import { createBloodDto } from 'src/blood/dto/create-blood.dto';
-import { createPatientDto } from 'src/patients/dto/create-patient.dto';
+import { IRoleName } from 'src/roles/roles.model';
 
 export class loginUserDto {
   readonly username: string;
   readonly password: string;
 }
 
-export class validateUserDto {
-  readonly username: string;
-  readonly password: string;
-}
+export class validateUserDto extends loginUserDto {}
 
-export class registerUserDto {
-  readonly username: string;
-  readonly password: string;
+export class registerUserDto extends loginUserDto {
   readonly blood: createBloodDto;
 }
 
-export class registerPatientDto {
-  readonly username: string;
-  readonly password: string;
+export class registerPatientDto extends loginUserDto {
   readonly blood: createBloodDto;
   readonly hospitalId: number;
   readonly doctorId: number;
+}
+
+export class registerPatientByDto extends registerPatientDto {
+  readonly creatorRole: IRoleName;
 }

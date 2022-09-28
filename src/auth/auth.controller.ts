@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { registerPatientDto, registerUserDto } from './dto';
 import { Roles } from './role-auth.decorator';
 import { RolesGuard } from './role.guard';
+import { Token } from './token.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -21,8 +22,8 @@ export class AuthController {
   @Roles('ADMIN', 'DOCTOR')
   @UseGuards(RolesGuard)
   @Post('register-patient')
-  registerPatient(@Body() dto: registerPatientDto) {
-    return this.authService.registerPatient(dto);
+  registerPatient(@Body() dto: registerPatientDto, @Token() token: string) {
+    return this.authService.registerPatient({ ...dto, creatorRole: 'ADMIN' });
   }
 
   @Roles('ADMIN')
