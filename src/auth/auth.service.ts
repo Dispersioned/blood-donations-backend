@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
+import { PatientsService } from 'src/patients/patients.service';
 import { createUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
@@ -8,7 +9,11 @@ import { loginUserDto, registerPatientByDto, registerUserDto, validateUserDto } 
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService, private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+    private readonly patientsService: PatientsService
+  ) {}
 
   async login(dto: loginUserDto) {
     const user = await this.validateUser(dto);
@@ -16,36 +21,32 @@ export class AuthService {
   }
 
   // TODO: requires extra bl when other modules done
+  //? Maybe it should return both user and token
+
   async registerDonor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DONOR' });
-    return user;
+    return this.generateToken(user);
   }
 
   async registerDoctor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DOCTOR' });
-    return user;
+    return this.generateToken(user);
   }
 
   async registerAdmin(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'ADMIN' });
-    return user;
+    return this.generateToken(user);
   }
 
   async registerPatient(dto: registerPatientByDto) {
-    console.log('new patient dto', dto);
-    // input: token
-    // const creatorRole = ... get user role
-    // if(creatorRole === "ADMIN") ...
-    // else if(creatorRole === "DOCTOR") ...
+    const user = await this.register({ ...dto, role: 'PATIENT' });
 
-    // const user = await this.register({ ...dto, role: 'PATIENT' });
-
-    // await this.patientsService.createPatient({
-    //   userId: user.id,
-    //   doctorId: dto.doctorId,
-    //   hospitalId: dto.hospitalId,
-    // });
-    // return user;
+    await this.patientsService.createPatient({
+      userId: user.id,
+      doctorId: dto.creator.role.value === 'ADMIN' ? dto.doctorId : dto.creator.id,
+      hospitalId: dto.hospitalId,
+    });
+    return user;
   }
 
   private async register(dto: createUserDto) {
@@ -57,7 +58,7 @@ export class AuthService {
     const hashPassword = await bcrypt.hash(dto.password, 5);
     const user = await this.usersService.createUser({ ...dto, password: hashPassword });
 
-    return this.generateToken(user);
+    return user;
   }
 
   private async generateToken(user: User) {
@@ -76,7 +77,7 @@ export class AuthService {
     return user;
   }
 
-  async verifyToken(token: string) {
+  async validateToken(token: string) {
     try {
       const user = this.jwtService.verify(token);
       return user;

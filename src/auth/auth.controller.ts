@@ -25,7 +25,7 @@ export class AuthController {
   @Post('register-patient')
   async registerPatient(@Body() dto: registerPatientDto, @Token() token: string) {
     const user = await this.jwtService.verify(token);
-    return this.authService.registerPatient({ ...dto, creatorRole: user.role.value });
+    return this.authService.registerPatient({ ...dto, creator: user });
   }
 
   @Roles('ADMIN')

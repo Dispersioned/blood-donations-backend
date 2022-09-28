@@ -1,5 +1,5 @@
 import { createBloodDto } from 'src/blood/dto/create-blood.dto';
-import { IRoleName } from 'src/roles/roles.model';
+import { User } from 'src/users/users.model';
 
 export class loginUserDto {
   readonly username: string;
@@ -18,5 +18,5 @@ export class registerPatientDto extends registerUserDto {
 }
 
 export class registerPatientByDto extends registerPatientDto {
-  readonly creatorRole: IRoleName;
+  readonly creator: User;
 }
