@@ -12,8 +12,7 @@ export class registerUserDto extends loginUserDto {
   readonly blood: createBloodDto;
 }
 
-export class registerPatientDto extends loginUserDto {
-  readonly blood: createBloodDto;
+export class registerPatientDto extends registerUserDto {
   readonly hospitalId: number;
   readonly doctorId: number;
 }
