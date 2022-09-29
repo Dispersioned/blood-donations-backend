@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   private async register(dto: createUserDto) {
-    const candidate = await this.usersService.getUserByUsername(dto.username);
+    const candidate = await this.usersService.getUserByName(dto.username);
     if (candidate) {
       throw new BadRequestException('Пользователь с таким именем уже существует');
     }
@@ -84,7 +84,7 @@ export class AuthService {
   }
 
   private async validateUser(userDto: validateUserDto) {
-    const user = await this.usersService.getUserByUsername(userDto.username);
+    const user = await this.usersService.getUserByName(userDto.username);
     if (!user) throw new UnauthorizedException('Пользователь не найден');
 
     const passwordEquals = await bcrypt.compare(userDto.password, user.password);
