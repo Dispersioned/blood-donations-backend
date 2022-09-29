@@ -61,7 +61,7 @@ export class AuthService {
       doctorId: dto.doctorId,
       hospitalId: dto.hospitalId,
     });
-    return user;
+    return this.generateToken(user);
   }
 
   private async register(dto: createUserDto) {
