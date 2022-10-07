@@ -19,7 +19,12 @@ export class AuthService {
 
   async login(dto: loginUserDto) {
     const user = await this.validateUser(dto);
-    return this.generateToken(user);
+    if (!user) throw new BadRequestException('Пользователь не найден');
+    console.log(user);
+    return {
+      user,
+      token: this.generateToken(user),
+    };
   }
 
   // TODO: requires extra bl when other modules done
