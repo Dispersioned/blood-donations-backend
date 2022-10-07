@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async me(dto: meDto) {
-    const user = await this.validateToken(dto.token);
+    const user = await this.validateUserByToken(dto.token);
     if (!user) throw new BadRequestException('Пользователь не найден');
     return {
       user,
@@ -88,6 +88,14 @@ export class AuthService {
     const user = await this.usersService.createUser({ ...dto, password: hashPassword });
 
     return user;
+  }
+
+  private async validateUserByToken(token: string) {
+    const user = await this.validateToken(token);
+    if (!user) throw new UnauthorizedException('Пользователь не найден');
+
+    const serializedUser = await this.usersService.getUserById(user.id);
+    return serializedUser;
   }
 
   private async generateToken(user: User) {

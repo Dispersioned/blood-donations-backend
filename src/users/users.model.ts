@@ -12,7 +12,7 @@ interface UserCreationAttrs {
   tableName: 'users',
   defaultScope: {
     attributes: {
-      exclude: ['password'],
+      exclude: ['password', 'bloodId', 'roleId'],
     },
   },
   scopes: {

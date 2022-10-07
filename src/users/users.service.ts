@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Blood } from 'src/blood/blood.model';
 import { BloodService } from 'src/blood/blood.service';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
@@ -29,18 +30,14 @@ export class UsersService {
 
   async getAllUsers() {
     const users = await this.userRepository.findAll({
-      include: {
-        model: Role,
-      },
+      include: [{ model: Role }, { model: Blood }],
     });
     return users;
   }
 
   async getUserById(id: number) {
     const user = await this.userRepository.findOne({
-      include: {
-        model: Role,
-      },
+      include: [{ model: Role }, { model: Blood }],
       where: {
         id,
       },
@@ -48,21 +45,10 @@ export class UsersService {
     return user;
   }
 
-  async getUserPassword(userId: number) {
-    const user = await this.userRepository.scope('withPassword').findOne({
-      where: {
-        id: userId,
-      },
-    });
-    return user.password;
-  }
-
   async getUserByName(username: string) {
     const user = await this.userRepository.findOne({
       where: { username },
-      include: {
-        model: Role,
-      },
+      include: [{ model: Role }, { model: Blood }],
     });
     return user;
   }
@@ -72,5 +58,14 @@ export class UsersService {
       where: { id: userId },
     });
     return user.role;
+  }
+
+  async getUserPassword(userId: number) {
+    const user = await this.userRepository.scope('withPassword').findOne({
+      where: {
+        id: userId,
+      },
+    });
+    return user.password;
   }
 }
