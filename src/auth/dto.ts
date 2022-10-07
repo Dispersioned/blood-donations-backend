@@ -1,6 +1,10 @@
 import { createBloodDto } from 'src/blood/dto/create-blood.dto';
 import { User } from 'src/users/users.model';
 
+export class meDto {
+  readonly token: string;
+}
+
 export class loginUserDto {
   readonly username: string;
   readonly password: string;

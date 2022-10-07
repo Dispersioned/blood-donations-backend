@@ -6,7 +6,7 @@ import { PatientsService } from 'src/patients/patients.service';
 import { createUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
-import { loginUserDto, registerPatientByDto, registerUserDto, validateUserDto } from './dto';
+import { loginUserDto, meDto, registerPatientByDto, registerUserDto, validateUserDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -20,9 +20,19 @@ export class AuthService {
   async login(dto: loginUserDto) {
     const user = await this.validateUser(dto);
     if (!user) throw new BadRequestException('Пользователь не найден');
+    const { token } = await this.generateToken(user);
+
     return {
       user,
-      token: this.generateToken(user),
+      token,
+    };
+  }
+
+  async me(dto: meDto) {
+    const user = await this.validateToken(dto.token);
+    if (!user) throw new BadRequestException('Пользователь не найден');
+    return {
+      user,
     };
   }
 

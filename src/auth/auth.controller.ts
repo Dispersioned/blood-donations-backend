@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
-import { loginUserDto, registerPatientDto, registerUserDto } from './dto';
+import { loginUserDto, meDto, registerPatientDto, registerUserDto } from './dto';
 import { Roles } from './role-auth.decorator';
 import { RolesGuard } from './role.guard';
 import { Token } from './token.decorator';
@@ -9,6 +9,11 @@ import { Token } from './token.decorator';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService, private readonly jwtService: JwtService) {}
+
+  @Post('me')
+  me(@Body() dto: meDto) {
+    return this.authService.me(dto);
+  }
 
   @Post('login')
   login(@Body() dto: loginUserDto) {
