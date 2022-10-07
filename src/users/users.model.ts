@@ -1,7 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Blood } from 'src/blood/blood.model';
 import { Donation } from 'src/donations/donations.model';
-import { Patient } from 'src/patients/patients.model';
 import { Role } from 'src/roles/roles.model';
 
 interface UserCreationAttrs {
@@ -9,7 +8,21 @@ interface UserCreationAttrs {
   password: string;
 }
 
-@Table({ tableName: 'users' })
+@Table({
+  tableName: 'users',
+  defaultScope: {
+    attributes: {
+      exclude: ['password'],
+    },
+  },
+  scopes: {
+    withPassword: {
+      attributes: {
+        exclude: [],
+      },
+    },
+  },
+})
 export class User extends Model<User, UserCreationAttrs> {
   @Column({
     type: DataType.INTEGER,

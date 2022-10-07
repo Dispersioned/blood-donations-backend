@@ -32,9 +32,6 @@ export class UsersService {
       include: {
         model: Role,
       },
-      attributes: {
-        exclude: ['password'],
-      },
     });
     return users;
   }
@@ -51,10 +48,21 @@ export class UsersService {
     return user;
   }
 
+  async getUserPassword(userId: number) {
+    const user = await this.userRepository.scope('withPassword').findOne({
+      where: {
+        id: userId,
+      },
+    });
+    return user.password;
+  }
+
   async getUserByName(username: string) {
     const user = await this.userRepository.findOne({
       where: { username },
-      include: { all: true },
+      include: {
+        model: Role,
+      },
     });
     return user;
   }

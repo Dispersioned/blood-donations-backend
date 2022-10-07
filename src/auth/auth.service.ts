@@ -20,7 +20,6 @@ export class AuthService {
   async login(dto: loginUserDto) {
     const user = await this.validateUser(dto);
     if (!user) throw new BadRequestException('Пользователь не найден');
-    console.log(user);
     return {
       user,
       token: this.generateToken(user),
@@ -92,7 +91,9 @@ export class AuthService {
     const user = await this.usersService.getUserByName(userDto.username);
     if (!user) throw new UnauthorizedException('Пользователь не найден');
 
-    const passwordEquals = await bcrypt.compare(userDto.password, user.password);
+    const password = await this.usersService.getUserPassword(user.id);
+
+    const passwordEquals = await bcrypt.compare(userDto.password, password);
     if (!passwordEquals) throw new UnauthorizedException('Неправильный логин или пароль');
     return user;
   }
