@@ -8,7 +8,7 @@ interface BloodCreationAttrs {
   rhFactor: IBloodRhFactor;
 }
 
-@Table({ tableName: 'blood' })
+@Table({ tableName: 'blood', timestamps: false })
 export class Blood extends Model<Blood, BloodCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
