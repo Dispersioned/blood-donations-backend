@@ -41,17 +41,32 @@ export class AuthService {
 
   async registerDonor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DONOR' });
-    return this.generateToken(user);
+    const { token } = await this.generateToken(user);
+
+    return {
+      user,
+      token,
+    };
   }
 
   async registerDoctor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DOCTOR' });
-    return this.generateToken(user);
+    const { token } = await this.generateToken(user);
+
+    return {
+      user,
+      token,
+    };
   }
 
   async registerAdmin(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'ADMIN' });
-    return this.generateToken(user);
+    const { token } = await this.generateToken(user);
+
+    return {
+      user,
+      token,
+    };
   }
 
   async registerPatient(dto: registerPatientByDto) {

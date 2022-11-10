@@ -17,14 +17,17 @@ export class UsersService {
   ) {}
 
   async createUser(dto: createUserDto) {
-    const user = await this.userRepository.create(dto);
     const role = await this.roleService.getRoleByValue(dto.role);
-    await user.$set('role', role.id);
     const blood = await this.bloodService.getBloodByValue(dto.blood);
+    const user = await this.userRepository.create(dto);
+    await user.$set('role', role.id);
     await user.$set('blood', blood.id);
     // needed to pass role & blood info in JWT token
     user.role = role;
     user.blood = blood;
+    // needed to include associated by IDs values in plain js user
+    user.setDataValue('role', role);
+    user.setDataValue('blood', blood);
     return user;
   }
 
@@ -50,6 +53,8 @@ export class UsersService {
       where: { username },
       include: [{ model: Role }, { model: Blood }],
     });
+
+    console.log('user', user);
     return user;
   }
 

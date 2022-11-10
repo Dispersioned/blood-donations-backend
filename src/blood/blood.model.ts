@@ -19,7 +19,7 @@ export class Blood extends Model<Blood, BloodCreationAttrs> {
   id: number;
 
   @Column({
-    type: DataType.ENUM('', 'A', 'B', 'AB'),
+    type: DataType.ENUM('0', 'A', 'B', 'AB'),
   })
   group: IBloodGroup;
 
