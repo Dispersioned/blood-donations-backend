@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Blood } from 'src/blood/blood.model';
 import { BloodService } from 'src/blood/blood.service';
+import { Donation } from 'src/donations/donations.model';
 import { Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
 import { createUserDto } from './dto/create-user.dto';
@@ -32,15 +33,12 @@ export class UsersService {
   }
 
   async getAllUsers() {
-    const users = await this.userRepository.findAll({
-      include: [{ model: Role }, { model: Blood }],
-    });
+    const users = await this.userRepository.findAll();
     return users;
   }
 
   async getUserById(id: number) {
     const user = await this.userRepository.findOne({
-      include: [{ model: Role }, { model: Blood }],
       where: {
         id,
       },
@@ -51,7 +49,6 @@ export class UsersService {
   async getUserByName(username: string) {
     const user = await this.userRepository.findOne({
       where: { username },
-      include: [{ model: Role }, { model: Blood }],
     });
 
     console.log('user', user);

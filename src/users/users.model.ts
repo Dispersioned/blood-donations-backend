@@ -11,6 +11,7 @@ interface UserCreationAttrs {
 @Table({
   tableName: 'users',
   defaultScope: {
+    include: ['blood', 'role'],
     attributes: {
       exclude: ['password', 'bloodId', 'roleId'],
     },
