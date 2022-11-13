@@ -2,7 +2,14 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize
 import { Hospital } from 'src/hospitals/hospitals.model';
 import { User } from 'src/users/users.model';
 
-@Table({ tableName: 'patients' })
+@Table({
+  tableName: 'patients',
+  defaultScope: {
+    attributes: {
+      exclude: ['userId', 'hospitalId', 'doctorId'],
+    },
+  },
+})
 export class Patient extends Model<Patient> {
   @Column({
     type: DataType.INTEGER,
@@ -20,9 +27,6 @@ export class Patient extends Model<Patient> {
   })
   userId: number;
 
-  @BelongsTo(() => User)
-  user: User;
-
   @ForeignKey(() => Hospital)
   @Column({
     field: 'hospital_id',
@@ -31,9 +35,6 @@ export class Patient extends Model<Patient> {
   })
   hospitalId: number;
 
-  @BelongsTo(() => Hospital)
-  hospital: Hospital;
-
   @ForeignKey(() => User)
   @Column({
     field: 'doctor_id',
@@ -41,6 +42,12 @@ export class Patient extends Model<Patient> {
     allowNull: false,
   })
   doctorId: number;
+
+  @BelongsTo(() => User)
+  user: User;
+
+  @BelongsTo(() => Hospital)
+  hospital: Hospital;
 
   @BelongsTo(() => User)
   doctor: User;

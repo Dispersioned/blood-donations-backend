@@ -8,7 +8,14 @@ interface DonationCreationAttrs {
   volume: number;
 }
 
-@Table({ tableName: 'donations', defaultScope: { attributes: { exclude: ['userId', 'hospitalBloodId'] } } })
+@Table({
+  tableName: 'donations',
+  defaultScope: {
+    attributes: {
+      exclude: ['userId', 'hospitalBloodId'],
+    },
+  },
+})
 export class Donation extends Model<Donation, DonationCreationAttrs> {
   @Column({
     type: DataType.INTEGER,

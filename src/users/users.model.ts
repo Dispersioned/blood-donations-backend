@@ -19,7 +19,7 @@ interface UserCreationAttrs {
   scopes: {
     withPassword: {
       attributes: {
-        exclude: [],
+        exclude: ['bloodId', 'roleId'],
       },
     },
   },

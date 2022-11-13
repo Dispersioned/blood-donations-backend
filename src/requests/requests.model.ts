@@ -12,7 +12,14 @@ interface RequestCreationAttrs {
   status: IRequestStatus;
 }
 
-@Table({ tableName: 'requests' })
+@Table({
+  tableName: 'requests',
+  defaultScope: {
+    attributes: {
+      exclude: ['patientId', 'bloodId'],
+    },
+  },
+})
 export class Request extends Model<Request, RequestCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
