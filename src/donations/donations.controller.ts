@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { DonationsService } from './donations.service';
 import { createDonationDto } from './dto/create-donation.dto';
 
@@ -14,5 +14,10 @@ export class DonationsController {
   @Get()
   getAllDonations() {
     return this.donationsService.getAll();
+  }
+
+  @Get(':userId')
+  getUserDonations(@Param('userId') id) {
+    return this.donationsService.getUserDonations(id);
   }
 }

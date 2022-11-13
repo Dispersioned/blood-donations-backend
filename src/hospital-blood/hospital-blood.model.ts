@@ -9,7 +9,14 @@ interface HospitalBloodCreationAttrs {
   bloodId: number;
 }
 
-@Table({ tableName: 'hospital_blood' })
+@Table({
+  tableName: 'hospital_blood',
+  defaultScope: {
+    attributes: {
+      exclude: ['hospitalId', 'bloodId'],
+    },
+  },
+})
 export class HospitalBlood extends Model<HospitalBlood, HospitalBloodCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
