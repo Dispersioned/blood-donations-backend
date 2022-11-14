@@ -11,4 +11,9 @@ export class UsersController {
   getAll() {
     return this.usersService.getAllUsers();
   }
+
+  @Get('doctors')
+  getAllDoctors() {
+    return this.usersService.getAllDoctors();
+  }
 }
