@@ -1,9 +1,7 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { loginUserDto, meDto, registerPatientDto, registerUserDto } from './dto';
-import { Roles } from './role-auth.decorator';
-import { RolesGuard } from './role.guard';
 import { Token } from './token.decorator';
 
 @Controller('auth')

@@ -40,7 +40,7 @@ export class UsersService {
       include: {
         model: Role,
         where: {
-          value: 'ADMIN',
+          value: 'DOCTOR',
         },
       },
     });
