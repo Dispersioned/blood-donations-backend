@@ -14,6 +14,11 @@ export class UsersController {
 
   @Get('doctors')
   getAllDoctors() {
-    return this.usersService.getAllDoctors();
+    return this.usersService.getAllUsersByRole('DOCTOR');
+  }
+
+  @Get('patients')
+  getAllPatients() {
+    return this.usersService.getAllUsersByRole('PATIENT');
   }
 }
