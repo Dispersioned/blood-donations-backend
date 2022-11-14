@@ -6,7 +6,7 @@ import { PatientsService } from 'src/patients/patients.service';
 import { createUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
-import { loginUserDto, meDto, registerPatientByDto, registerUserDto, validateUserDto } from './dto';
+import { loginUserDto, meDto, registerPatientDto, registerUserDto, validateUserDto } from './dto';
 
 @Injectable()
 export class AuthService {
@@ -37,7 +37,6 @@ export class AuthService {
   }
 
   // TODO: requires extra bl when other modules done
-  //? Maybe it should return both user and token
 
   async registerDonor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DONOR' });
@@ -69,20 +68,22 @@ export class AuthService {
     };
   }
 
-  async registerPatient(dto: registerPatientByDto) {
+  async registerPatient(dto: registerPatientDto) {
     const hospital = await this.hospitalsService.getById(dto.hospitalId);
     if (!hospital) throw new BadRequestException('Больница не найдена');
 
-    const doctor = await this.usersService.getUserById(dto.creator.id);
+    // const doctor = await this.usersService.getUserById(dto.creator.id);
+    const doctor = await this.usersService.getUserById(dto.doctorId);
     if (!doctor) {
       throw new BadRequestException('Доктор не найден');
     }
-    if (doctor.role.value !== 'DOCTOR' && doctor.role.value !== 'ADMIN') {
-      throw new BadRequestException('Недостаточно прав');
+    if (doctor.role.value !== 'DOCTOR') {
+      throw new BadRequestException('Доктор недействителен');
     }
-    if (doctor.role.value === 'DOCTOR' && doctor.id !== dto.doctorId) {
-      throw new BadRequestException('Доктор не может назначить куратором больного другого доктора');
-    }
+    //? temp disabled
+    // if (doctor.role.value === 'DOCTOR' && doctor.id !== dto.doctorId) {
+    //   throw new BadRequestException('Доктор не может назначить куратором больного другого доктора');
+    // }
 
     const user = await this.register({ ...dto, role: 'PATIENT' });
     await this.patientsService.createPatient({
@@ -90,7 +91,12 @@ export class AuthService {
       doctorId: dto.doctorId,
       hospitalId: dto.hospitalId,
     });
-    return this.generateToken(user);
+    const { token } = await this.generateToken(user);
+
+    return {
+      user,
+      token,
+    };
   }
 
   private async register(dto: createUserDto) {

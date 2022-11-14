@@ -21,6 +21,6 @@ export class registerPatientDto extends registerUserDto {
   readonly doctorId: number;
 }
 
-export class registerPatientByDto extends registerPatientDto {
-  readonly creator: User;
-}
+// export class registerPatientByDto extends registerPatientDto {
+//   readonly creator: User;
+// }

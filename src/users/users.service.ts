@@ -27,6 +27,7 @@ export class UsersService {
     // needed to include associated by IDs values in plain js user
     user.setDataValue('role', role);
     user.setDataValue('blood', blood);
+
     return user;
   }
 
@@ -72,7 +73,7 @@ export class UsersService {
   }
 
   async getUserPassword(userId: number) {
-    const user = await this.userRepository.scope('withPassword').findOne({
+    const user = await this.userRepository.findOne({
       where: {
         id: userId,
       },

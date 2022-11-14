@@ -12,16 +12,6 @@ interface UserCreationAttrs {
   tableName: 'users',
   defaultScope: {
     include: ['blood', 'role'],
-    attributes: {
-      exclude: ['password', 'bloodId', 'roleId'],
-    },
-  },
-  scopes: {
-    withPassword: {
-      attributes: {
-        exclude: ['bloodId', 'roleId'],
-      },
-    },
   },
 })
 export class User extends Model<User, UserCreationAttrs> {
