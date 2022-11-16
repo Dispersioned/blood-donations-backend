@@ -6,7 +6,7 @@ import { User } from 'src/users/users.model';
   tableName: 'patients',
   defaultScope: {
     attributes: {
-      exclude: ['userId', 'hospitalId', 'doctorId'],
+      exclude: ['userId', 'hospitalId'],
     },
   },
 })
@@ -35,20 +35,9 @@ export class Patient extends Model<Patient> {
   })
   hospitalId: number;
 
-  @ForeignKey(() => User)
-  @Column({
-    field: 'doctor_id',
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  doctorId: number;
-
   @BelongsTo(() => User)
   user: User;
 
   @BelongsTo(() => Hospital)
   hospital: Hospital;
-
-  @BelongsTo(() => User)
-  doctor: User;
 }

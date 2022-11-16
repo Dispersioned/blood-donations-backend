@@ -8,6 +8,7 @@ export class PatientsController {
   @Get()
   async getAllPatients() {
     const patients = await this.patientsService.getAllPatients();
+    console.log('patients :>> ', patients);
     return patients;
   }
 }

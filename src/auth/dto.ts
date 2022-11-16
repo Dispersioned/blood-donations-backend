@@ -18,7 +18,6 @@ export class registerUserDto extends loginUserDto {
 
 export class registerPatientDto extends registerUserDto {
   readonly hospitalId: number;
-  readonly doctorId: number;
 }
 
 // export class registerPatientByDto extends registerPatientDto {

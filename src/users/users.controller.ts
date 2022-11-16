@@ -18,10 +18,4 @@ export class UsersController {
     const users = await this.usersService.getAllUsersByRole('DOCTOR');
     return users;
   }
-
-  @Get('patients')
-  async getAllPatients() {
-    const users = await this.usersService.getAllUsersByRole('PATIENT');
-    return users;
-  }
 }
