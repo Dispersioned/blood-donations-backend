@@ -1,5 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import sanitizeUser from 'src/utils/sanitizeUser';
 import { AuthService } from './auth.service';
 import { loginUserDto, meDto, registerPatientDto, registerUserDto } from './dto';
 
@@ -9,17 +10,28 @@ export class AuthController {
 
   @Post('me')
   async me(@Body() dto: meDto) {
-    return this.authService.me(dto);
+    const data = await this.authService.me(dto);
+    return {
+      user: sanitizeUser(data.user),
+    };
   }
 
   @Post('login')
   async login(@Body() dto: loginUserDto) {
-    return this.authService.login(dto);
+    const data = await this.authService.login(dto);
+    return {
+      token: data.token,
+      user: sanitizeUser(data.user),
+    };
   }
 
   @Post('register')
   async registerDonor(@Body() dto: registerUserDto) {
-    return this.authService.registerDonor(dto);
+    const data = await this.authService.registerDonor(dto);
+    return {
+      token: data.token,
+      user: sanitizeUser(data.user),
+    };
   }
 
   // @Roles('ADMIN', 'DOCTOR')
@@ -32,20 +44,32 @@ export class AuthController {
   // }
   @Post('register-patient')
   async registerPatient(@Body() dto: registerPatientDto) {
-    return this.authService.registerPatient(dto);
+    const data = await this.authService.registerPatient(dto);
+    return {
+      token: data.token,
+      user: sanitizeUser(data.user),
+    };
   }
 
   // @Roles('ADMIN')
   // @UseGuards(RolesGuard)
   @Post('register-doctor')
   async registerDoctor(@Body() dto: registerUserDto) {
-    return this.authService.registerDoctor(dto);
+    const data = await this.authService.registerDoctor(dto);
+    return {
+      token: data.token,
+      user: sanitizeUser(data.user),
+    };
   }
 
   // @Roles('ADMIN')
   // @UseGuards(RolesGuard)
   @Post('register-admin')
   async registerAdmin(@Body() dto: registerUserDto) {
-    return this.authService.registerAdmin(dto);
+    const data = await this.authService.registerAdmin(dto);
+    return {
+      token: data.token,
+      user: sanitizeUser(data.user),
+    };
   }
 }

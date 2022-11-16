@@ -21,10 +21,10 @@ export class UsersService {
     const user = await this.userRepository.create(dto);
     await user.$set('role', role.id);
     await user.$set('blood', blood.id);
-    // needed to pass role & blood info in JWT token
+    //* needed to pass role & blood info in JWT token
     user.role = role;
     user.blood = blood;
-    // needed to include associated by IDs values in plain js user
+    //* needed to include associated by IDs values in plain js user
     user.setDataValue('role', role);
     user.setDataValue('blood', blood);
 
@@ -61,8 +61,6 @@ export class UsersService {
     const user = await this.userRepository.findOne({
       where: { username },
     });
-
-    console.log('user', user);
     return user;
   }
 
@@ -71,7 +69,6 @@ export class UsersService {
       where: { username },
     });
 
-    console.log('user', user);
     return user;
   }
 

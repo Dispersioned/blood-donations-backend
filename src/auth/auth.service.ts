@@ -36,8 +36,6 @@ export class AuthService {
     };
   }
 
-  // TODO: requires extra bl when other modules done
-
   async registerDonor(dto: registerUserDto) {
     const user = await this.register({ ...dto, role: 'DONOR' });
     const { token } = await this.generateToken(user);
@@ -130,9 +128,7 @@ export class AuthService {
     const user = await this.usersService.getUserByNameWithPassword(userDto.username);
     if (!user) throw new UnauthorizedException('Пользователь не найден');
 
-    console.log('tick2');
     const password = await this.usersService.getUserPassword(user.id);
-    console.log('tick3');
 
     const passwordEquals = await bcrypt.compare(userDto.password, password);
     if (!passwordEquals) throw new UnauthorizedException('Неправильный логин или пароль');
