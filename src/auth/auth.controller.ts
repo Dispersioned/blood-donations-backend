@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import sanitizeUser from 'src/utils/sanitizeUser';
 import { AuthService } from './auth.service';
 import { loginUserDto, meDto, registerPatientDto, registerUserDto } from './dto';
-import { Token } from './token.decorator';
 
 @Controller('auth')
 export class AuthController {
