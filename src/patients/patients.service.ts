@@ -16,7 +16,7 @@ export class PatientsService {
 
   async getAllPatients() {
     const patients = await this.patientsRepository.findAll({
-      include: ['user'],
+      include: ['user', 'hospital'],
     });
     return patients;
   }
