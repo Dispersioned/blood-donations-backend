@@ -62,6 +62,16 @@ export class UsersService {
       where: { username },
     });
 
+    console.log('user', user);
+    return user;
+  }
+
+  async getUserByNameWithPassword(username: string) {
+    const user = await this.userRepository.scope('withPassword').findOne({
+      where: { username },
+    });
+
+    console.log('user', user);
     return user;
   }
 
@@ -73,7 +83,7 @@ export class UsersService {
   }
 
   async getUserPassword(userId: number) {
-    const user = await this.userRepository.findOne({
+    const user = await this.userRepository.scope('withPassword').findOne({
       where: {
         id: userId,
       },

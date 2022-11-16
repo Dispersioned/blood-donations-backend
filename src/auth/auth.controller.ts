@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import sanitizeUser from 'src/utils/sanitizeUser';
 import { AuthService } from './auth.service';
 import { loginUserDto, meDto, registerPatientDto, registerUserDto } from './dto';
 
@@ -10,29 +9,17 @@ export class AuthController {
 
   @Post('me')
   async me(@Body() dto: meDto) {
-    const data = await this.authService.me(dto);
-    return {
-      ...data,
-      user: sanitizeUser(data.user),
-    };
+    return this.authService.me(dto);
   }
 
   @Post('login')
   async login(@Body() dto: loginUserDto) {
-    const data = await this.authService.login(dto);
-    return {
-      ...data,
-      user: sanitizeUser(data.user),
-    };
+    return this.authService.login(dto);
   }
 
   @Post('register')
   async registerDonor(@Body() dto: registerUserDto) {
-    const data = await this.authService.registerDonor(dto);
-    return {
-      ...data,
-      user: sanitizeUser(data.user),
-    };
+    return this.authService.registerDonor(dto);
   }
 
   // @Roles('ADMIN', 'DOCTOR')
@@ -45,32 +32,20 @@ export class AuthController {
   // }
   @Post('register-patient')
   async registerPatient(@Body() dto: registerPatientDto) {
-    const data = await this.authService.registerPatient(dto);
-    return {
-      ...data,
-      user: sanitizeUser(data.user),
-    };
+    return this.authService.registerPatient(dto);
   }
 
   // @Roles('ADMIN')
   // @UseGuards(RolesGuard)
   @Post('register-doctor')
   async registerDoctor(@Body() dto: registerUserDto) {
-    const data = await this.authService.registerDoctor(dto);
-    return {
-      ...data,
-      user: sanitizeUser(data.user),
-    };
+    return this.authService.registerDoctor(dto);
   }
 
   // @Roles('ADMIN')
   // @UseGuards(RolesGuard)
   @Post('register-admin')
   async registerAdmin(@Body() dto: registerUserDto) {
-    const data = await this.authService.registerAdmin(dto);
-    return {
-      ...data,
-      user: sanitizeUser(data.user),
-    };
+    return this.authService.registerAdmin(dto);
   }
 }

@@ -11,7 +11,15 @@ interface UserCreationAttrs {
 @Table({
   tableName: 'users',
   defaultScope: {
+    attributes: {
+      exclude: ['password', 'bloodId', 'roleId'],
+    },
     include: ['blood', 'role'],
+  },
+  scopes: {
+    withPassword: {
+      include: ['blood', 'role'],
+    },
   },
 })
 export class User extends Model<User, UserCreationAttrs> {

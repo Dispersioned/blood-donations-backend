@@ -12,6 +12,15 @@ export class PatientsService {
     await patient.$set('user', dto.userId);
     await patient.$set('hospital', dto.hospitalId);
     await patient.$set('doctor', dto.doctorId);
+    //! Need serialization
     return patient;
+  }
+
+  async getAllPatients() {
+    const patients = await this.patientsRepository.findAll({
+      include: ['user', 'doctor'],
+    });
+    //! Need serialization
+    return patients;
   }
 }
