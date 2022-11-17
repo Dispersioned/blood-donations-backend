@@ -9,6 +9,9 @@ import { User } from 'src/users/users.model';
       exclude: ['userId', 'hospitalId'],
     },
   },
+  scopes: {
+    withForeignKeys: {},
+  },
 })
 export class Patient extends Model<Patient> {
   @Column({
