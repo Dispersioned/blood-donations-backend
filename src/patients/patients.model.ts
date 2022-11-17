@@ -46,12 +46,12 @@ export class Patient extends Model<Patient> {
   })
   doctorId: number;
 
-  @BelongsTo(() => User, 'user_id')
+  @BelongsTo(() => User, 'userId')
   user: User;
 
   @BelongsTo(() => Hospital)
   hospital: Hospital;
 
-  @BelongsTo(() => User, 'doctor_id')
+  @BelongsTo(() => User, 'doctorId')
   doctor: User;
 }

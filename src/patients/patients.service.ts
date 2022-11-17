@@ -25,17 +25,12 @@ export class PatientsService {
   }
 
   async getPatientInfo(id: number) {
-    console.log('id', id);
     const patient = await this.patientsRepository.scope('withForeignKeys').findOne({
       where: {
         userId: id,
       },
-      // attributes: {
-      //   exclude: ['user'],
-      // },
-      // include: ['user', 'hospital'],
+      include: ['doctor', 'hospital'],
     });
-    console.log('patient', patient);
     return patient;
   }
 }
