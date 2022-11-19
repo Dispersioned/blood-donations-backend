@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { DonationsService } from 'src/donations/donations.service';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
 import { PatientsService } from 'src/patients/patients.service';
 import { createRequestDto } from './dto/create-request.dto';
@@ -10,7 +11,8 @@ export class RequestsService {
   constructor(
     @InjectModel(Request) private readonly requestRepository: typeof Request,
     private readonly patientService: PatientsService,
-    private readonly hospitalBloodService: HospitalBloodService
+    private readonly hospitalBloodService: HospitalBloodService,
+    private readonly donationsService: DonationsService
   ) {}
 
   async createRequest(dto: createRequestDto) {
@@ -48,6 +50,8 @@ export class RequestsService {
         request.patient.hospital.id,
         request.patient.user.id
       );
+
+      const donations = await this.donationsService.getAllByHospitalBloodId(hospitalBlood.id);
     });
     // console.log('requests :>> ', requests);
     return requests;
