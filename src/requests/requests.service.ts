@@ -53,6 +53,14 @@ export class RequestsService {
       'hospitalBloods',
       hospitalBloods.map((v) => v.id)
     );
+
+    hospitalBloods.forEach(async (hb) => {
+      const availableVolume =
+        (await this.donationsService.getBloodVolume({
+          hospitalBloodId: hb.id,
+        })) || 0;
+
+      console.log('availableVolume :>> ', availableVolume);
     });
 
     // requests.forEach(async (request) => {
