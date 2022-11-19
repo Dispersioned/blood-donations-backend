@@ -10,6 +10,7 @@ export class PatientsService {
   async createPatient(dto: createPatientDto) {
     const patient = await this.patientsRepository.create(dto);
     // это иногда нужно, но непонятно когда
+
     // await patient.$set('user', 11);
     // await patient.$set('hospital', dto.hospitalId);
     // await patient.$set('doctor', dto.doctorId);
