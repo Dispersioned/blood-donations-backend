@@ -61,6 +61,8 @@ export class RequestsService {
           hospitalBloodId: hb.id,
         })) || 0;
 
+      console.log('donatedVolume', donatedVolume, hb.hospitalId);
+
       const available = donatedVolume - transferredVolume;
 
       return {
@@ -77,7 +79,7 @@ export class RequestsService {
 
     const requestsWithStatus = requests.map((request) => {
       const correctHB = hospitalBloods.find(
-        (hb) => hb.bloodId === request.patient.user.bloodId && hb.hospitalId === request.patient.hospitalId
+        (hb) => hb.bloodId === request.patient.user.blood.id && hb.hospitalId === request.patient.hospital.id
       );
 
       return {
@@ -86,7 +88,6 @@ export class RequestsService {
       };
     });
 
-    console.log('requestsWithStatus', requestsWithStatus);
     return requestsWithStatus;
   }
 }

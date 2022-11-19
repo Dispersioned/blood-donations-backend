@@ -46,7 +46,7 @@ export class HospitalBloodService {
   }
 
   async getByHospitals(hospitalsId: number[]) {
-    const hospitalBloods = await this.hospitalBloodRepository.findAll({
+    const hospitalBloods = await this.hospitalBloodRepository.scope('withForeignKeys').findAll({
       where: {
         hospitalId: hospitalsId,
       },

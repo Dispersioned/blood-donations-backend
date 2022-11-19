@@ -16,6 +16,9 @@ interface HospitalBloodCreationAttrs {
       exclude: ['hospitalId', 'bloodId'],
     },
   },
+  scopes: {
+    withForeignKeys: {},
+  },
 })
 export class HospitalBlood extends Model<HospitalBlood, HospitalBloodCreationAttrs> {
   @Column({
