@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from 'src/users/users.model';
 import { createPatientDto } from './dto/create-patient.dto';
 import { Patient } from './patients.model';
 
@@ -11,6 +10,7 @@ export class PatientsService {
   async createPatient(dto: createPatientDto) {
     const patient = await this.patientsRepository.create(dto);
     // это иногда нужно, но непонятно когда
+
     // await patient.$set('user', 11);
     // await patient.$set('hospital', dto.hospitalId);
     // await patient.$set('doctor', dto.doctorId);
@@ -18,18 +18,24 @@ export class PatientsService {
   }
 
   async getAllPatients() {
-    const patients = await this.patientsRepository.scope('withForeignKeys').findAll({
-      include: ['user', 'hospital', 'doctor'],
-    });
+    const patients = await this.patientsRepository.scope('withForeignKeys').findAll();
     return patients;
   }
 
-  async getPatientInfo(id: number) {
+  async getPatientByUserId(id: number) {
     const patient = await this.patientsRepository.scope('withForeignKeys').findOne({
       where: {
         userId: id,
       },
-      include: ['doctor', 'hospital'],
+    });
+    return patient;
+  }
+
+  async getPatientById(id: number) {
+    const patient = await this.patientsRepository.findOne({
+      where: {
+        id,
+      },
     });
     return patient;
   }

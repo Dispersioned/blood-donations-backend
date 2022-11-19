@@ -8,9 +8,12 @@ import { User } from 'src/users/users.model';
     attributes: {
       exclude: ['userId', 'hospitalId', 'doctorId'],
     },
+    include: ['user', 'hospital', 'doctor'],
   },
   scopes: {
-    withForeignKeys: {},
+    withForeignKeys: {
+      include: ['user', 'hospital', 'doctor'],
+    },
   },
 })
 export class Patient extends Model<Patient> {

@@ -3,7 +3,7 @@ import { Blood } from 'src/blood/blood.model';
 import { Patient } from 'src/patients/patients.model';
 import { Transfer } from 'src/transfers/transfers.model';
 
-type IRequestStatus = 'fulfilled' | 'pending';
+type IRequestStatus = 'FULFILLED' | 'READY' | 'PENDING';
 
 interface RequestCreationAttrs {
   patientId: number;
@@ -18,6 +18,7 @@ interface RequestCreationAttrs {
     attributes: {
       exclude: ['patientId', 'bloodId'],
     },
+    include: ['patient'],
   },
 })
 export class Request extends Model<Request, RequestCreationAttrs> {
@@ -52,7 +53,7 @@ export class Request extends Model<Request, RequestCreationAttrs> {
   volume: number;
 
   @Column({
-    type: DataType.ENUM('fulfilled', 'pending'),
+    type: DataType.ENUM('FULFILLED', 'READY', 'PENDING'),
     allowNull: false,
   })
   status: IRequestStatus;

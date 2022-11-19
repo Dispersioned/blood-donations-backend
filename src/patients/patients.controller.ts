@@ -11,7 +11,7 @@ export class PatientsController {
   }
 
   @Get(':patientId')
-  getPatientInfo(@Param('patientId') id) {
-    return this.patientsService.getPatientInfo(+id);
+  getPatient(@Param('patientId') id) {
+    return this.patientsService.getPatientByUserId(+id);
   }
 }

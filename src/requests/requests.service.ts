@@ -1,16 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { PatientsService } from 'src/patients/patients.service';
 import { createRequestDto } from './dto/create-request.dto';
 import { Request } from './requests.model';
 
 @Injectable()
 export class RequestsService {
-  constructor(@InjectModel(Request) private readonly requestRepository: typeof Request) {}
+  constructor(
+    @InjectModel(Request) private readonly requestRepository: typeof Request,
+    private readonly patientService: PatientsService
+  ) {}
 
   async createRequest(dto: createRequestDto) {
-    const request = await this.requestRepository.create({ ...dto, status: 'pending' });
-    await request.$set('patient', dto.patientId);
-    await request.$set('blood', dto.bloodId);
+    //! get blood id
+
+    const patient = await this.patientService.getPatientById(dto.patientId);
+
+    if (!patient) throw new BadRequestException('Пациент не найден');
+
+    const request = await this.requestRepository.create({
+      patientId: patient.id,
+      bloodId: patient.user.blood.id,
+      volume: dto.volume,
+      status: 'PENDING',
+    });
     return request;
   }
 
