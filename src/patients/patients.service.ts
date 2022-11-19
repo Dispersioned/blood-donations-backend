@@ -17,9 +17,7 @@ export class PatientsService {
   }
 
   async getAllPatients() {
-    const patients = await this.patientsRepository.scope('withForeignKeys').findAll({
-      include: ['user', 'hospital', 'doctor'],
-    });
+    const patients = await this.patientsRepository.scope('withForeignKeys').findAll();
     return patients;
   }
 
@@ -28,7 +26,6 @@ export class PatientsService {
       where: {
         userId: id,
       },
-      include: ['user', 'hospital', 'doctor'],
     });
     return patient;
   }
@@ -38,7 +35,6 @@ export class PatientsService {
       where: {
         id,
       },
-      include: ['user', 'hospital', 'doctor'],
     });
     return patient;
   }
