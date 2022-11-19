@@ -23,10 +23,20 @@ export class PatientsService {
     return patients;
   }
 
-  async getPatient(id: number) {
+  async getPatientByUserId(id: number) {
     const patient = await this.patientsRepository.scope('withForeignKeys').findOne({
       where: {
         userId: id,
+      },
+      include: ['user', 'hospital', 'doctor'],
+    });
+    return patient;
+  }
+
+  async getPatientById(id: number) {
+    const patient = await this.patientsRepository.findOne({
+      where: {
+        id,
       },
       include: ['user', 'hospital', 'doctor'],
     });

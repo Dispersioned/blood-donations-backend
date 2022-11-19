@@ -1,17 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { PatientsService } from 'src/patients/patients.service';
 import { createRequestDto } from './dto/create-request.dto';
 import { Request } from './requests.model';
 
 @Injectable()
 export class RequestsService {
-  constructor(@InjectModel(Request) private readonly requestRepository: typeof Request) {}
+  constructor(
+    @InjectModel(Request) private readonly requestRepository: typeof Request,
+    private readonly patientService: PatientsService
+  ) {}
 
   async createRequest(dto: createRequestDto) {
-    const request = await this.requestRepository.create({ ...dto, status: 'pending' });
-    await request.$set('patient', dto.patientId);
-    await request.$set('blood', dto.bloodId);
-    return request;
+    //! get blood id
+
+    const patient = await this.patientService.getPatientById(dto.patientId);
+    console.log('patient :>> ', patient);
+
+    // const request = await this.requestRepository.create({ ...dto, bloodId: null, status: 'PENDING' });
+    // await request.$set('patient', dto.patientId);
+    // await request.$set('blood', dto.bloodId);
+    // return request;
   }
 
   async getById(id: number) {
