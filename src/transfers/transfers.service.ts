@@ -15,14 +15,15 @@ export class TransfersService {
 
   async createTransfer(dto: createTransferDto) {
     const request = await this.requestsService.getById(dto.requestId);
-    if (!request) throw new BadRequestException('Запрос крови не найден');
+    if (!request) throw new BadRequestException('Запрос на переливание не найден');
 
     const hospitalBlood = await this.hospitalBloodService.getById(dto.hospitalBloodId);
-    if (!hospitalBlood) throw new BadRequestException('Банк крови не найден');
+    if (!hospitalBlood) throw new BadRequestException('Кровь в больнице не найдена');
 
     const transfer = await this.transferRepository.create(dto);
-    await transfer.$set('request', request.id);
-    await transfer.$set('hospitalBlood', hospitalBlood.id);
+    //? not needed
+    // await transfer.$set('request', request.id);
+    // await transfer.$set('hospitalBlood', hospitalBlood.id);
     return transfer;
   }
 }

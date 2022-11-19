@@ -10,5 +10,6 @@ import { TransfersService } from './transfers.service';
   controllers: [TransfersController],
   imports: [SequelizeModule.forFeature([Transfer]), RequestsModule, HospitalBloodModule],
   providers: [TransfersService],
+  exports: [TransfersService],
 })
 export class TransfersModule {}
