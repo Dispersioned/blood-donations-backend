@@ -18,6 +18,7 @@ interface RequestCreationAttrs {
     attributes: {
       exclude: ['patientId', 'bloodId'],
     },
+    include: ['patient'],
   },
 })
 export class Request extends Model<Request, RequestCreationAttrs> {
