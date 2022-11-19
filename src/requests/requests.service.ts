@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { DonationsService } from 'src/donations/donations.service';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
 import { PatientsService } from 'src/patients/patients.service';
+import { TransfersService } from 'src/transfers/transfers.service';
 import { createRequestDto } from './dto/create-request.dto';
 import { Request } from './requests.model';
 
@@ -12,7 +13,8 @@ export class RequestsService {
     @InjectModel(Request) private readonly requestRepository: typeof Request,
     private readonly patientService: PatientsService,
     private readonly hospitalBloodService: HospitalBloodService,
-    private readonly donationsService: DonationsService
+    private readonly donationsService: DonationsService,
+    private readonly transfersService: TransfersService
   ) {}
 
   async createRequest(dto: createRequestDto) {
@@ -49,30 +51,42 @@ export class RequestsService {
     const hospitalsId = Array.from(new Set(requests.map((request) => request.patient.hospital.id)));
     const hospitalBloods = await this.hospitalBloodService.getByHospitals(hospitalsId);
 
-    console.log(
-      'hospitalBloods',
-      hospitalBloods.map((v) => v.id)
-    );
-
-    hospitalBloods.forEach(async (hb) => {
-      const availableVolume =
+    const volumeData = hospitalBloods.map(async (hb) => {
+      const donatedVolume =
         (await this.donationsService.getBloodVolume({
           hospitalBloodId: hb.id,
         })) || 0;
+      const transferredVolume =
+        (await this.transfersService.getBloodVolume({
+          hospitalBloodId: hb.id,
+        })) || 0;
 
-      console.log('availableVolume :>> ', availableVolume);
+      const available = donatedVolume - transferredVolume;
+
+      return {
+        hospitalBlood: hb,
+        available,
+      };
     });
 
-    // requests.forEach(async (request) => {
-    //   const hospitalBlood = await this.hospitalBloodService.getExact(
-    //     request.patient.hospital.id,
-    //     request.patient.user.id
-    //   );
+    const mapHBId2Volume = {};
+    for (const data of await Promise.all(volumeData)) {
+      mapHBId2Volume[data.hospitalBlood.id] = data.available;
+    }
+    console.log('mapHBId2Volume', mapHBId2Volume);
 
-    //   const donations = await this.donationsService.getAllByHospitalBloodId(hospitalBlood.id);
-    // });
+    const requestsWithStatus = requests.map((request) => {
+      const correctHB = hospitalBloods.find(
+        (hb) => hb.bloodId === request.patient.user.bloodId && hb.hospitalId === request.patient.hospitalId
+      );
 
-    // console.log('requests :>> ', requests);
-    return requests;
+      return {
+        request,
+        availableVolume: mapHBId2Volume[correctHB.id],
+      };
+    });
+
+    console.log('requestsWithStatus', requestsWithStatus);
+    return requestsWithStatus;
   }
 }
