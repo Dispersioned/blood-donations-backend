@@ -45,14 +45,25 @@ export class RequestsService {
     const requests = await this.requestRepository.findAll();
 
     //* для каждого реквеста нужно узнать объем крови
-    requests.forEach(async (request) => {
-      const hospitalBlood = await this.hospitalBloodService.getExact(
-        request.patient.hospital.id,
-        request.patient.user.id
-      );
 
-      const donations = await this.donationsService.getAllByHospitalBloodId(hospitalBlood.id);
+    const hospitalsId = Array.from(new Set(requests.map((request) => request.patient.hospital.id)));
+    const hospitalBloods = await this.hospitalBloodService.getByHospitals(hospitalsId);
+
+    console.log(
+      'hospitalBloods',
+      hospitalBloods.map((v) => v.id)
+    );
     });
+
+    // requests.forEach(async (request) => {
+    //   const hospitalBlood = await this.hospitalBloodService.getExact(
+    //     request.patient.hospital.id,
+    //     request.patient.user.id
+    //   );
+
+    //   const donations = await this.donationsService.getAllByHospitalBloodId(hospitalBlood.id);
+    // });
+
     // console.log('requests :>> ', requests);
     return requests;
   }

@@ -36,6 +36,24 @@ export class HospitalBloodService {
     return hospitalBlood;
   }
 
+  async getByHospital(hospitalId: number) {
+    const hospitalBlood = await this.hospitalBloodRepository.findAll({
+      where: {
+        hospitalId,
+      },
+    });
+    return hospitalBlood;
+  }
+
+  async getByHospitals(hospitalsId: number[]) {
+    const hospitalBloods = await this.hospitalBloodRepository.findAll({
+      where: {
+        hospitalId: hospitalsId,
+      },
+    });
+    return hospitalBloods;
+  }
+
   async getExact(hospitalId: number, bloodId: number) {
     const hospitalBlood = await this.hospitalBloodRepository.findOne({
       where: {
