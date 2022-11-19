@@ -31,4 +31,9 @@ export class RequestsService {
     });
     return request;
   }
+
+  async getAllRequests() {
+    const request = await this.requestRepository.findAll();
+    return request;
+  }
 }
