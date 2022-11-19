@@ -38,6 +38,15 @@ export class DonationsService {
     return donations;
   }
 
+  async getAllByHospitalBloodId(hospitalBloodId: number) {
+    const donations = await this.donationsRepository.findAll({
+      where: {
+        hospitalBloodId,
+      },
+    });
+    return donations;
+  }
+
   async getUserDonations(userId: number) {
     const donations = await this.donationsRepository.findAll({
       where: {

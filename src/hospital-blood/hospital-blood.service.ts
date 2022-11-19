@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BloodService } from 'src/blood/blood.service';
+// import { DonationsService } from 'src/donations/donations.service';
 import { CreateHospitalBloodDto } from './dto/create-hospital-blood.dto';
 import { HospitalBlood } from './hospital-blood.model';
 
@@ -8,11 +9,12 @@ import { HospitalBlood } from './hospital-blood.model';
 export class HospitalBloodService {
   constructor(
     @InjectModel(HospitalBlood) private readonly hospitalBloodRepository: typeof HospitalBlood,
-    private readonly bloodService: BloodService
+    private readonly bloodService: BloodService // private readonly donationsService: DonationsService
   ) {}
 
   async createHospitalBlood(dto: CreateHospitalBloodDto) {
     const hospitalBlood = await this.hospitalBloodRepository.create(dto);
+    // TODO по факту не нужно
     await hospitalBlood.$set('hospital', dto.hospitalId);
     await hospitalBlood.$set('blood', dto.bloodId);
     return hospitalBlood;
@@ -43,6 +45,18 @@ export class HospitalBloodService {
       },
     });
     return hospitalBlood;
+  }
+
+  async getAvailableVolume(hospitalBloodId: number) {
+    const hospitalBlood = await this.hospitalBloodRepository.findOne({
+      where: {
+        id: hospitalBloodId,
+      },
+    });
+
+    console.log('hospitalBlood', hospitalBlood);
+
+    // const donations = await this.donationsService.getAllByHospitalBloodId(hospitalBlood.id);
   }
 
   // Don't think it's needed...
