@@ -12,8 +12,6 @@ export class RequestsService {
   ) {}
 
   async createRequest(dto: createRequestDto) {
-    //! get blood id
-
     const patient = await this.patientService.getPatientById(dto.patientId);
 
     if (!patient) throw new BadRequestException('Пациент не найден');
