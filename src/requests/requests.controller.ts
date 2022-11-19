@@ -7,8 +7,8 @@ export class RequestsController {
   constructor(private readonly requestsService: RequestsService) {}
 
   @Get()
-  getAllRequests() {
-    return this.requestsService.getAllRequests();
+  getAllRequestsWithStatus() {
+    return this.requestsService.getAllRequestsWithStatus();
   }
 
   @Post()

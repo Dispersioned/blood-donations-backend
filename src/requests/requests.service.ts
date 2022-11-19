@@ -33,7 +33,13 @@ export class RequestsService {
   }
 
   async getAllRequests() {
-    const request = await this.requestRepository.findAll();
-    return request;
+    const requests = await this.requestRepository.findAll();
+    return requests;
+  }
+
+  async getAllRequestsWithStatus() {
+    const requests = await this.requestRepository.findAll();
+    // console.log('requests :>> ', requests);
+    return requests;
   }
 }
