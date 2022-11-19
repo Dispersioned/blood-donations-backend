@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from 'src/users/users.model';
 import { createPatientDto } from './dto/create-patient.dto';
 import { Patient } from './patients.model';
 
@@ -24,12 +23,12 @@ export class PatientsService {
     return patients;
   }
 
-  async getPatientInfo(id: number) {
+  async getPatient(id: number) {
     const patient = await this.patientsRepository.scope('withForeignKeys').findOne({
       where: {
         userId: id,
       },
-      include: ['doctor', 'hospital'],
+      include: ['user', 'hospital', 'doctor'],
     });
     return patient;
   }
