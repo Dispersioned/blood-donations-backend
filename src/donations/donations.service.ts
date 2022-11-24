@@ -1,5 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import sequelize, { ProjectionAlias } from 'sequelize';
+import { Fn } from 'sequelize/types/utils';
 import { BloodService } from 'src/blood/blood.service';
 import { HospitalBlood } from 'src/hospital-blood/hospital-blood.model';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
@@ -36,6 +38,17 @@ export class DonationsService {
   async getAll() {
     const donations = await this.donationsRepository.findAll();
     return donations;
+  }
+
+  async getBloodVolume({ hospitalBloodId }: { hospitalBloodId: number }) {
+    const volume = await this.donationsRepository.findAll({
+      where: {
+        hospitalBloodId,
+      },
+      attributes: [[sequelize.fn('SUM', sequelize.col('volume')), 'volume']],
+      raw: true,
+    });
+    return volume[0].volume;
   }
 
   async getUserDonations(userId: number) {

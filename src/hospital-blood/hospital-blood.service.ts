@@ -13,6 +13,7 @@ export class HospitalBloodService {
 
   async createHospitalBlood(dto: CreateHospitalBloodDto) {
     const hospitalBlood = await this.hospitalBloodRepository.create(dto);
+    // TODO по факту не нужно
     await hospitalBlood.$set('hospital', dto.hospitalId);
     await hospitalBlood.$set('blood', dto.bloodId);
     return hospitalBlood;
@@ -35,6 +36,24 @@ export class HospitalBloodService {
     return hospitalBlood;
   }
 
+  async getByHospital(hospitalId: number) {
+    const hospitalBlood = await this.hospitalBloodRepository.findAll({
+      where: {
+        hospitalId,
+      },
+    });
+    return hospitalBlood;
+  }
+
+  async getByHospitals(hospitalsId: number[]) {
+    const hospitalBloods = await this.hospitalBloodRepository.scope('withForeignKeys').findAll({
+      where: {
+        hospitalId: hospitalsId,
+      },
+    });
+    return hospitalBloods;
+  }
+
   async getExact(hospitalId: number, bloodId: number) {
     const hospitalBlood = await this.hospitalBloodRepository.findOne({
       where: {
@@ -44,10 +63,4 @@ export class HospitalBloodService {
     });
     return hospitalBlood;
   }
-
-  // Don't think it's needed...
-  // async getAll() {
-  //   const hospitalBloods = await this.hospitalBloodRepository.findAll();
-  //   return hospitalBloods;
-  // }
 }

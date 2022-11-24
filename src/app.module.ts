@@ -21,6 +21,7 @@ import { Transfer } from './transfers/transfers.model';
 import { TransfersModule } from './transfers/transfers.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
+import { RequestConfirmerModule } from './request-confirmer/request-confirmer.module';
 
 @Module({
   controllers: [],
@@ -51,6 +52,7 @@ import { UsersModule } from './users/users.module';
     DonationsModule,
     RequestsModule,
     HospitalsModule,
+    RequestConfirmerModule,
   ],
 })
 export class AppModule {}

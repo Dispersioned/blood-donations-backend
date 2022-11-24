@@ -8,7 +8,14 @@ interface TransferCreationAttrs {
   volume: number;
 }
 
-@Table({ tableName: 'transfers' })
+@Table({
+  tableName: 'transfers',
+  defaultScope: {
+    attributes: {
+      exclude: ['requestId', 'hospitalBloodId'],
+    },
+  },
+})
 export class Transfer extends Model<Transfer, TransferCreationAttrs> {
   @Column({
     type: DataType.INTEGER,

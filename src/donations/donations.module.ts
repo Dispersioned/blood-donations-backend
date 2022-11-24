@@ -9,8 +9,9 @@ import { Donation } from './donations.model';
 import { DonationsService } from './donations.service';
 
 @Module({
-  providers: [DonationsService],
-  imports: [SequelizeModule.forFeature([Donation]), UsersModule, BloodModule, HospitalsModule, HospitalBloodModule],
   controllers: [DonationsController],
+  imports: [SequelizeModule.forFeature([Donation]), UsersModule, BloodModule, HospitalsModule, HospitalBloodModule],
+  providers: [DonationsService],
+  exports: [DonationsService],
 })
 export class DonationsModule {}
