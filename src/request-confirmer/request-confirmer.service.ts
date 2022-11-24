@@ -21,11 +21,14 @@ export class RequestConfirmerService {
     const hospitalBlood = await this.hospitalBloodService.getExact(request.patient.hospital.id, request.blood.id);
     if (!hospitalBlood) throw new BadRequestException('Кровь в больнице не найдена');
 
+    request.set('status', 'FULFILLED');
+    request.save();
     const transfer = await this.transfersService.create({
       requestId: dto.requestId,
       hospitalBloodId: hospitalBlood.id,
       volume: request.volume,
     });
+
     return transfer;
   }
 }
