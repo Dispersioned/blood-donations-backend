@@ -9,7 +9,7 @@ import { Request } from './requests.model';
 import { RequestsService } from './requests.service';
 
 @Module({
-  providers: [RequestsService],
+  controllers: [RequestsController],
   imports: [
     SequelizeModule.forFeature([Request]),
     PatientsModule,
@@ -17,7 +17,7 @@ import { RequestsService } from './requests.service';
     DonationsModule,
     TransfersModule,
   ],
-  controllers: [RequestsController],
+  providers: [RequestsService],
   exports: [RequestsService],
 })
 export class RequestsModule {}

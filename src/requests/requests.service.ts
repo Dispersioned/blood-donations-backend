@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Includeable } from 'sequelize';
 import { DonationsService } from 'src/donations/donations.service';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
 import { PatientsService } from 'src/patients/patients.service';
@@ -19,7 +20,6 @@ export class RequestsService {
 
   async createRequest(dto: createRequestDto) {
     const patient = await this.patientService.getPatientById(dto.patientId);
-
     if (!patient) throw new BadRequestException('Пациент не найден');
 
     const request = await this.requestRepository.create({
@@ -31,9 +31,10 @@ export class RequestsService {
     return request;
   }
 
-  async getById(id: number) {
+  async getById(id: number, include: Includeable | Includeable[]) {
     const request = await this.requestRepository.findOne({
       where: { id },
+      include,
     });
     return request;
   }
@@ -61,7 +62,7 @@ export class RequestsService {
           hospitalBloodId: hb.id,
         })) || 0;
 
-      console.log('donatedVolume', donatedVolume, hb.hospitalId);
+      //* console.log('donatedVolume', donatedVolume, hb.hospitalId);
 
       const available = donatedVolume - transferredVolume;
 
@@ -75,7 +76,7 @@ export class RequestsService {
     for (const data of await Promise.all(volumeData)) {
       mapHBId2Volume[data.hospitalBlood.id] = data.available;
     }
-    console.log('mapHBId2Volume', mapHBId2Volume);
+    //* console.log('mapHBId2Volume', mapHBId2Volume);
 
     const requestsWithStatus = requests.map((request) => {
       const correctHB = hospitalBloods.find(
