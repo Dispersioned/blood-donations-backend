@@ -9,9 +9,4 @@ export class BloodController {
   getAllBlood() {
     return this.bloodService.getAll();
   }
-
-  @Post()
-  createAllBloods() {
-    return this.bloodService.createAllBloods();
-  }
 }

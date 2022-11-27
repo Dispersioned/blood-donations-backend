@@ -22,6 +22,7 @@ import { TransfersModule } from './transfers/transfers.module';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 import { RequestConfirmerModule } from './request-confirmer/request-confirmer.module';
+import { InitModule } from './init/init.module';
 
 @Module({
   controllers: [],
@@ -53,6 +54,7 @@ import { RequestConfirmerModule } from './request-confirmer/request-confirmer.mo
     RequestsModule,
     HospitalsModule,
     RequestConfirmerModule,
+    InitModule,
   ],
 })
 export class AppModule {}

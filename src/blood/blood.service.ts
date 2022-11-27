@@ -28,6 +28,9 @@ export class BloodService {
   }
 
   async createAllBloods() {
+    const bloods = await this.getAll();
+    if (bloods.length !== 0) return bloods;
+
     await this.createBlood({ group: '', rhFactor: '-' });
     await this.createBlood({ group: '', rhFactor: '+' });
     await this.createBlood({ group: 'A', rhFactor: '-' });
@@ -36,7 +39,7 @@ export class BloodService {
     await this.createBlood({ group: 'B', rhFactor: '+' });
     await this.createBlood({ group: 'AB', rhFactor: '-' });
     await this.createBlood({ group: 'AB', rhFactor: '+' });
-    const bloods = await this.getAll();
-    return bloods;
+    const inited = await this.getAll();
+    return inited;
   }
 }
