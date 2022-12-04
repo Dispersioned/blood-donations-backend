@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { HospitalsModule } from 'src/hospitals/hospitals.module';
 import { PatientsModule } from 'src/patients/patients.module';
@@ -16,7 +16,7 @@ import { AuthService } from './auth.service';
         expiresIn: '24h',
       },
     }),
-    forwardRef(() => UsersModule),
+    UsersModule,
     PatientsModule,
     HospitalsModule,
   ],
