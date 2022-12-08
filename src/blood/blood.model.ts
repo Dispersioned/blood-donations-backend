@@ -1,6 +1,6 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
-export type IBloodGroup = '' | 'A' | 'B' | 'AB';
+export type IBloodGroup = '0' | 'A' | 'B' | 'AB';
 export type IBloodRhFactor = '+' | '-';
 
 interface BloodCreationAttrs {

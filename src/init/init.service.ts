@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { BloodService } from 'src/blood/blood.service';
+import { RolesService } from 'src/roles/roles.service';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -8,9 +9,11 @@ export class InitService {
   constructor(
     private readonly bloodService: BloodService,
     private readonly authService: AuthService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
+    private readonly rolesService: RolesService
   ) {}
   async init() {
+    await this.rolesService.createAllRoles();
     await this.bloodService.createAllBloods();
     const admin = await this.usersService.getUserByName('admin');
     if (!admin)
@@ -42,6 +45,6 @@ export class InitService {
         username: 'donor',
         password: 'donor',
       });
-    return;
+    return 'init done';
   }
 }

@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Put } from '@nestjs/common';
+import { updateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -17,5 +18,10 @@ export class UsersController {
   async getAllDoctors() {
     const users = await this.usersService.getAllUsersByRole('DOCTOR');
     return users;
+  }
+
+  @Put()
+  async updateUser(@Body() dto: updateUserDto) {
+    return this.usersService.updateUser(dto);
   }
 }

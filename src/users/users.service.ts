@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { BloodService } from 'src/blood/blood.service';
 import { IRoleName, Role } from 'src/roles/roles.model';
 import { RolesService } from 'src/roles/roles.service';
 import { createUserDto } from './dto/create-user.dto';
+import { updateUserDto } from './dto/update-user.dto';
 import { User } from './users.model';
 
 @Injectable()
@@ -14,6 +15,14 @@ export class UsersService {
     private readonly roleService: RolesService,
     private readonly bloodService: BloodService
   ) {}
+
+  async updateUser(dto: updateUserDto) {
+    const user = await this.userRepository.findByPk(dto.userId);
+    if (!user) throw new BadRequestException('Пользователь не найден');
+    user.set('username', dto.username);
+    user.save();
+    return user;
+  }
 
   async createUser(dto: createUserDto) {
     const role = await this.roleService.getRoleByValue(dto.role);

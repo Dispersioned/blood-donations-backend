@@ -1,19 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { UsersService } from 'src/users/users.service';
 import { createPatientDto } from './dto/create-patient.dto';
+import { updatePatientDto } from './dto/update-patient.dto';
 import { Patient } from './patients.model';
 
 @Injectable()
 export class PatientsService {
-  constructor(@InjectModel(Patient) private readonly patientsRepository: typeof Patient) {}
+  constructor(
+    @InjectModel(Patient) private readonly patientsRepository: typeof Patient,
+    private readonly usersService: UsersService
+  ) {}
 
   async createPatient(dto: createPatientDto) {
     const patient = await this.patientsRepository.create(dto);
-    // это иногда нужно, но непонятно когда
-
-    // await patient.$set('user', 11);
-    // await patient.$set('hospital', dto.hospitalId);
-    // await patient.$set('doctor', dto.doctorId);
     return patient;
   }
 
@@ -37,6 +37,24 @@ export class PatientsService {
         id,
       },
     });
+    return patient;
+  }
+
+  async updatePatient(dto: updatePatientDto) {
+    const patient = await this.patientsRepository.findByPk(dto.patientId);
+    if (!patient) throw new BadRequestException('Пациент не найден');
+
+    if (patient.user.username !== dto.username) {
+      const potentialUser = await this.usersService.getUserByName(dto.username);
+      if (potentialUser) throw new BadRequestException('Пользователь с таким именем уже существует');
+      patient.user.set('username', dto.username);
+      await patient.user.save();
+    }
+
+    patient.$set('doctor', dto.doctorId);
+    patient.$set('hospital', dto.hospitalId);
+    await patient.save();
+
     return patient;
   }
 }
