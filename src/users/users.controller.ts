@@ -6,8 +6,6 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Roles('ADMIN')
-  // @UseGuards(RolesGuard)
   @Get()
   async getAll() {
     const users = await this.usersService.getAllUsers();
