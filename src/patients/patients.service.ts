@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
 import { createPatientDto } from './dto/create-patient.dto';
 import { updatePatientDto } from './dto/update-patient.dto';
@@ -38,6 +39,22 @@ export class PatientsService {
       },
     });
     return patient;
+  }
+
+  async getDoctorPatients(doctorId: number) {
+    const patients = await this.patientsRepository.findAll({
+      include: [
+        {
+          model: User,
+          as: 'doctor',
+          where: {
+            id: doctorId,
+          },
+        },
+      ],
+    });
+
+    return patients;
   }
 
   async updatePatient(dto: updatePatientDto) {

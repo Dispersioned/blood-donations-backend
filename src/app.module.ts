@@ -23,6 +23,7 @@ import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 import { RequestConfirmerModule } from './request-confirmer/request-confirmer.module';
 import { InitModule } from './init/init.module';
+import { UserDeleteModule } from './user-delete/user-delete.module';
 
 @Module({
   controllers: [],
@@ -55,6 +56,7 @@ import { InitModule } from './init/init.module';
     HospitalsModule,
     RequestConfirmerModule,
     InitModule,
+    UserDeleteModule,
   ],
 })
 export class AppModule {}
