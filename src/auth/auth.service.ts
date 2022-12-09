@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { HospitalsService } from 'src/hospitals/hospitals.service';
 import { PatientsService } from 'src/patients/patients.service';
-import { createUserDto } from 'src/users/dto/create-user.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
 import { loginUserDto, meDto, registerPatientDto, registerUserDto, validateUserDto } from './dto';
@@ -92,7 +92,7 @@ export class AuthService {
     };
   }
 
-  private async register(dto: createUserDto) {
+  private async register(dto: CreateUserDto) {
     const candidate = await this.usersService.getUserByNameWithPassword(dto.username);
     if (candidate) {
       throw new BadRequestException('Пользователь с таким именем уже существует');
