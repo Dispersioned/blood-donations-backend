@@ -35,6 +35,7 @@ export class Request extends Model<Request, RequestCreationAttrs> {
     field: 'patient_id',
     type: DataType.INTEGER,
     allowNull: false,
+    onDelete: 'CASCADE',
   })
   patientId: number;
 

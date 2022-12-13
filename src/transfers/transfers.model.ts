@@ -29,7 +29,8 @@ export class Transfer extends Model<Transfer, TransferCreationAttrs> {
   @Column({
     field: 'request_id',
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
+    onDelete: 'SET NULL',
   })
   requestId: number;
 

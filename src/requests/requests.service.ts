@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Includeable } from 'sequelize';
 import { DonationsService } from 'src/donations/donations.service';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
+import { Patient } from 'src/patients/patients.model';
 import { PatientsService } from 'src/patients/patients.service';
 import { TransfersService } from 'src/transfers/transfers.service';
 import { createRequestDto } from './dto/create-request.dto';
@@ -29,6 +30,20 @@ export class RequestsService {
       status: 'PENDING',
     });
     return request;
+  }
+
+  async getByPatient(patientId: number) {
+    const requests = await this.requestRepository.findAll({
+      include: [
+        {
+          model: Patient,
+          where: {
+            id: patientId,
+          },
+        },
+      ],
+    });
+    return requests;
   }
 
   async getById(id: number, include: Includeable | Includeable[]) {

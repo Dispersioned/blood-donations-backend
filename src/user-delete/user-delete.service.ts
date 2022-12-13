@@ -1,11 +1,16 @@
 import { BadRequestException, Body, Injectable } from '@nestjs/common';
 import { PatientsService } from 'src/patients/patients.service';
+import { RequestsService } from 'src/requests/requests.service';
 import { UsersService } from 'src/users/users.service';
 import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Injectable()
 export class UserDeleteService {
-  constructor(private readonly usersService: UsersService, private readonly patientsService: PatientsService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly patientsService: PatientsService,
+    private readonly requestsService: RequestsService
+  ) {}
 
   async deleteDoctor(dto: DeleteUserDto) {
     const doctor = await this.usersService.getUserById(dto.userId);
@@ -21,8 +26,11 @@ export class UserDeleteService {
     const patient = await this.patientsService.getPatientByUserId(dto.userId);
     if (!patient) throw new BadRequestException('Пациент не найден');
 
-    patient.destroy();
-    console.log('patient :>> ', patient);
-    patient.user.destroy();
+    const patientRequests = await this.requestsService.getByPatient(patient.id);
+
+    for (const request of patientRequests) request.destroy({ force: true });
+
+    await patient.destroy();
+    await patient.user.destroy();
   }
 }
