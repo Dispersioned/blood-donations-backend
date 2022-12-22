@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PatientsService } from 'src/patients/patients.service';
 import { RequestsService } from 'src/requests/requests.service';
 import { UsersService } from 'src/users/users.service';
@@ -19,7 +19,8 @@ export class UserDeleteService {
     const patients = await this.patientsService.getDoctorPatients(doctor.id);
     if (patients.length > 0) throw new BadRequestException('У этого доктора есть пациенты');
 
-    doctor.destroy();
+    await doctor.destroy();
+    return { deleted: true };
   }
 
   async deletePatient(dto: DeleteUserDto) {
@@ -32,5 +33,6 @@ export class UserDeleteService {
 
     await patient.destroy();
     await patient.user.destroy();
+    return { deleted: true };
   }
 }
