@@ -6,7 +6,7 @@ import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service'
 import { Patient } from 'src/patients/patients.model';
 import { PatientsService } from 'src/patients/patients.service';
 import { TransfersService } from 'src/transfers/transfers.service';
-import { createRequestDto } from './dto/create-request.dto';
+import { CreateRequestDto } from './dto/create-request.dto';
 import { Request } from './requests.model';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class RequestsService {
     private readonly transfersService: TransfersService
   ) {}
 
-  async createRequest(dto: createRequestDto) {
+  async createRequest(dto: CreateRequestDto) {
     const patient = await this.patientService.getPatientById(dto.patientId);
     if (!patient) throw new BadRequestException('Пациент не найден');
 

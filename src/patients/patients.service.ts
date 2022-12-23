@@ -2,8 +2,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/users/users.model';
 import { UsersService } from 'src/users/users.service';
-import { createPatientDto } from './dto/create-patient.dto';
-import { updatePatientDto } from './dto/update-patient.dto';
+import { CreatePatientDto } from './dto/create-patient.dto';
+import { UpdatePatientDto } from './dto/update-patient.dto';
 import { Patient } from './patients.model';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class PatientsService {
     private readonly usersService: UsersService
   ) {}
 
-  async createPatient(dto: createPatientDto) {
+  async createPatient(dto: CreatePatientDto) {
     const patient = await this.patientsRepository.create(dto);
     return patient;
   }
@@ -23,10 +23,10 @@ export class PatientsService {
     return patients;
   }
 
-  async getPatientByUserId(id: number) {
+  async getPatientByUserId(userId: number) {
     const patient = await this.patientsRepository.scope('withForeignKeys').findOne({
       where: {
-        userId: id,
+        userId,
       },
     });
     return patient;
@@ -57,7 +57,7 @@ export class PatientsService {
     return patients;
   }
 
-  async updatePatient(dto: updatePatientDto) {
+  async updatePatient(dto: UpdatePatientDto) {
     const patient = await this.patientsRepository.findByPk(dto.patientId);
     if (!patient) throw new BadRequestException('Пациент не найден');
 

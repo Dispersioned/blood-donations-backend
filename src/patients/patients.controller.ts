@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
-import { updatePatientDto } from './dto/update-patient.dto';
+import { UpdatePatientDto } from './dto/update-patient.dto';
 import { PatientsService } from './patients.service';
 
 @Controller('patients')
@@ -17,7 +17,7 @@ export class PatientsController {
   }
 
   @Put()
-  async updatePatient(@Body() dto: updatePatientDto) {
+  async updatePatient(@Body() dto: UpdatePatientDto) {
     return this.patientsService.updatePatient(dto);
   }
 }

@@ -23,7 +23,7 @@ export class RequestConfirmerService {
 
     request.set('status', 'FULFILLED');
     request.save();
-    const transfer = await this.transfersService.create({
+    const transfer = await this.transfersService.createTransfer({
       requestId: dto.requestId,
       hospitalBloodId: hospitalBlood.id,
       volume: request.volume,

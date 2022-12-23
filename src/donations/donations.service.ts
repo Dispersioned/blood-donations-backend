@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import sequelize, { ProjectionAlias } from 'sequelize';
-import { Fn } from 'sequelize/types/utils';
+import sequelize from 'sequelize';
 import { BloodService } from 'src/blood/blood.service';
 import { HospitalBlood } from 'src/hospital-blood/hospital-blood.model';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
@@ -9,7 +8,7 @@ import { Hospital } from 'src/hospitals/hospitals.model';
 import { HospitalsService } from 'src/hospitals/hospitals.service';
 import { UsersService } from 'src/users/users.service';
 import { Donation } from './donations.model';
-import { createDonationDto } from './dto/create-donation.dto';
+import { CreateDonationDto } from './dto/create-donation.dto';
 
 @Injectable()
 export class DonationsService {
@@ -21,7 +20,7 @@ export class DonationsService {
     private readonly hospitalsService: HospitalsService
   ) {}
 
-  async createDonation(dto: createDonationDto) {
+  async createDonation(dto: CreateDonationDto) {
     const user = await this.usersService.getUserById(dto.userId);
     if (!user) throw new BadRequestException('Пользователь не найден');
 

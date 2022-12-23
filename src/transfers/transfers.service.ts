@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import sequelize from 'sequelize';
 import { HospitalBloodService } from 'src/hospital-blood/hospital-blood.service';
-import { createTransferDto } from './dto/create-transfer.dto';
+import { CreateTransferDto } from './dto/create-transfer.dto';
 import { Transfer } from './transfers.model';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class TransfersService {
     private readonly hospitalBloodService: HospitalBloodService
   ) {}
 
-  async create(dto: createTransferDto) {
+  async createTransfer(dto: CreateTransferDto) {
     const transfer = await this.transferRepository.create(dto);
     return transfer;
   }

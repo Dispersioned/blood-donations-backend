@@ -22,9 +22,14 @@ export class HospitalBloodService {
   async createBloodBank(hospitalId: number) {
     const bloods = await this.bloodService.getAll();
 
+    const hospitalBloods = [];
+
     bloods.forEach(async (blood) => {
-      await this.createHospitalBlood({ bloodId: blood.id, hospitalId });
+      const hb = await this.createHospitalBlood({ bloodId: blood.id, hospitalId });
+      hospitalBloods.push(hb);
     });
+
+    return hospitalBloods;
   }
 
   async getById(id: number) {
